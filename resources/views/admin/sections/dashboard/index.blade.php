@@ -30,19 +30,23 @@
                                 <h6 class="title">{{ __('Add Money Balance') }}</h6>
                                 <div class="user-info">
                                     <h2 class="user-count">
-                                        {{ get_default_currency_symbol() }}{{ get_amount($data['add_money_total_balance']) }}
+                                        {{ get_amount($data['add_money_total_balance']) }}
+                                        {{ get_default_currency_symbol() }}
                                     </h2>
                                 </div>
                                 <div class="user-badge">
                                     <span class="badge badge--info">{{ __('Completed') }}
-                                        {{ get_default_currency_symbol() }}{{ formatNumberInKNotation($data['completed_add_money']) }}</span>
+                                        {{ formatNumberInKNotation($data['completed_add_money']) }}
+                                        {{ get_default_currency_symbol() }}</span>
                                     <span class="badge badge--warning">{{ __('Pending') }}
-                                        {{ get_default_currency_symbol() }}{{ formatNumberInKNotation($data['pending_add_money']) }}</span>
+                                        {{ formatNumberInKNotation($data['pending_add_money']) }}
+                                        {{ get_default_currency_symbol() }}</span>
                                 </div>
                             </div>
                             <div class="right">
                                 <div class="chart" id="chart7" data-percent="{{ $data['add_money_percent'] }}">
-                                    <span>{{ round($data['add_money_percent']) }}%</span></div>
+                                    <span>{{ round($data['add_money_percent']) }}%</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -74,18 +78,21 @@
                                 <h6 class="title">{{ __('Total Profit') }}</h6>
                                 <div class="user-info">
                                     <h2 class="user-count">
-                                        {{ get_default_currency_symbol() }}{{ get_amount($data['total_profits']) }}</h2>
+                                        {{ get_amount($data['total_profits']) }} {{ get_default_currency_symbol() }}</h2>
                                 </div>
                                 <div class="user-badge">
                                     <span class="badge badge--info">{{ __('This Month') }}
-                                        {{ get_default_currency_symbol() }}{{ formatNumberInKNotation($data['this_month_profits']) }}</span>
+                                        {{ formatNumberInKNotation($data['this_month_profits']) }}
+                                        {{ get_default_currency_symbol() }}</span>
                                     <span class="badge badge--warning">{{ __('Last Month') }}
-                                        {{ get_default_currency_symbol() }}{{ formatNumberInKNotation($data['last_month_profits']) }}</span>
+                                        {{ formatNumberInKNotation($data['last_month_profits']) }}
+                                        {{ get_default_currency_symbol() }}</span>
                                 </div>
                             </div>
                             <div class="right">
                                 <div class="chart" id="chart9" data-percent="{{ $data['profit_percent'] }}">
-                                    <span>{{ round($data['profit_percent']) }}%</span></div>
+                                    <span>{{ round($data['profit_percent']) }}%</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -144,7 +151,8 @@
                             </div>
                             <div class="right">
                                 <div class="chart" id="chart12" data-percent="{{ $data['user_perchant'] }}">
-                                    <span>{{ round($data['user_perchant'], 2) }}%</span></div>
+                                    <span>{{ round($data['user_perchant'], 2) }}%</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -186,7 +194,8 @@
                             </div>
                             <div class="right">
                                 <div class="chart" id="chart15" data-percent="{{ $data['ticket_perchant'] }}">
-                                    <span>{{ round($data['ticket_perchant'], 2) }}%</span></div>
+                                    <span>{{ round($data['ticket_perchant'], 2) }}%</span>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -204,9 +213,9 @@
 
             </div>
         </div>
-        <div class="right">
+        {{-- <div class="right">
             <div class="chart" id="chart16" data-percent="100"><span>100%</span></div>
-        </div>
+        </div> --}}
     </div>
     </div>
     </div> --}}

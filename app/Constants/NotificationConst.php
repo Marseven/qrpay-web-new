@@ -2,7 +2,8 @@
 
 namespace App\Constants;
 
-class NotificationConst {
+class NotificationConst
+{
     const SIDE_NAV = "SIDE_NAV";
     const LOGIN = "LOGGED_IN";
     const BALANCE_UPDATE = "BALANCE_UPDATE";
@@ -12,6 +13,7 @@ class NotificationConst {
     const MAKE_PAYMENT = "MAKE-PAYMENT";
     const SEND_REMITTANCE = "SEND-REMITTANCE";
     const BILL_PAY = "BILL-PAY";
+    const TICKET_PAY = "TICKET-PAY";
     const MOBILE_TOPUP = "MOBILE-TOPUP";
     const CARD_BUY = "CARD-BUY";
     const CARD_FUND = "CARD-FUND";

@@ -150,6 +150,32 @@
                             // ],
                 
                             [
+                                'title' => 'Ticket Pay Logs',
+                                'icon' => 'menu-icon las la-ticket',
+                                'links' => [
+                                    [
+                                        'title' => 'Categories',
+                                        'route' => 'admin.ticket.pay.category.index',
+                                    ],
+                                    [
+                                        'title' => 'Pending Logs',
+                                        'route' => 'admin.ticket.pay.pending',
+                                    ],
+                                    [
+                                        'title' => 'Completed Logs',
+                                        'route' => 'admin.ticket.pay.complete',
+                                    ],
+                                    [
+                                        'title' => 'Canceled Logs',
+                                        'route' => 'admin.ticket.pay.canceled',
+                                    ],
+                                    [
+                                        'title' => 'All Logs',
+                                        'route' => 'admin.ticket.pay.index',
+                                    ],
+                                ],
+                            ],
+                            [
                                 'title' => 'Bill Pay Logs',
                                 'icon' => 'menu-icon las la-shopping-bag',
                                 'links' => [

@@ -1,8 +1,11 @@
 <?php
+
 namespace App\Constants;
+
 use Illuminate\Support\Str;
 
-class PaymentGatewayConst {
+class PaymentGatewayConst
+{
 
     const AUTOMATIC = "AUTOMATIC";
     const MANUAL    = "MANUAL";
@@ -20,6 +23,7 @@ class PaymentGatewayConst {
     const RECEIVEREMITTANCE = "RECEIVE-REMITTANCE";
     const TYPEMONEYEXCHANGE = "MONEY-EXCHANGE";
     const BILLPAY = "BILL-PAY";
+    const TICKETPAY = "TICKET-PAY";
     const MOBILETOPUP = "MOBILE-TOPUP";
     const VIRTUALCARD = "VIRTUAL-CARD";
     const CARDBUY = "CARD-BUY";
@@ -45,16 +49,19 @@ class PaymentGatewayConst {
     const ENV_PRODUCTION    = "PRODUCTION";
 
 
-    public static function add_money_slug() {
+    public static function add_money_slug()
+    {
         return Str::slug(self::ADDMONEY);
     }
 
 
-    public static function money_out_slug() {
+    public static function money_out_slug()
+    {
         return Str::slug(self::MONEYOUT);
     }
 
-    public static function register($alias = null) {
+    public static function register($alias = null)
+    {
         $gateway_alias  = [
             self::PAYPAL => "paypalInit",
             self::STRIPE => "stripeInit",
@@ -62,19 +69,20 @@ class PaymentGatewayConst {
             self::FLUTTER_WAVE => 'flutterwaveInit'
         ];
 
-        if($alias == null) {
+        if ($alias == null) {
             return $gateway_alias;
         }
 
-        if(array_key_exists($alias,$gateway_alias)) {
+        if (array_key_exists($alias, $gateway_alias)) {
             return $gateway_alias[$alias];
         }
         return "init";
     }
     const APP       = "APP";
-    public static function apiAuthenticateGuard() {
-            return [
-                'api'   => 'web',
-            ];
+    public static function apiAuthenticateGuard()
+    {
+        return [
+            'api'   => 'web',
+        ];
     }
 }

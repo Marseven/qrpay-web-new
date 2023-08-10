@@ -19,7 +19,6 @@ class TrxSettingsController extends Controller
     {
         $page_title = "Fees & Charges";
         $transaction_charges = TransactionSetting::whereNotIn('id', [4, 5])->get();
-        dd($transaction_charges);
         return view('admin.sections.trx-settings.index', compact(
             'page_title',
             'transaction_charges'

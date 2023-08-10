@@ -251,7 +251,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 mb-15">
+            <div class="col-lg-6 mb-15">
                 <div class="chart-wrapper">
                     <div class="chart-area-header">
                         <h5 class="title">
@@ -266,7 +266,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-lg-4 mb-15">
+            <div class="col-lg-6 mb-15">
                 <div class="chart-wrapper">
                     <div class="chart-area-header">
                         <h5 class="title">{{ __('User Analytics') }}</h5>
@@ -284,7 +284,7 @@
                 </div>
             </div>
 
-            <div class="col-lg-4 mb-15">
+            {{-- <div class="col-lg-4 mb-15">
                 <div class="chart-wrapper">
                     <div class="chart-area-header">
                         <h5 class="title">{{ __('Merchant Analytics') }}</h5>
@@ -300,7 +300,7 @@
                         </div>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
     <div class="table-area  mt-15">

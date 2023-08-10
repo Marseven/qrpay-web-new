@@ -51,26 +51,6 @@
                         </div>
                     </div>
                 </div>
-
-                {{-- <div class="col-xxxl-4 col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-12 mb-15">
-                    <div class="dashbord-item">
-                        <div class="dashboard-content">
-                            <div class="left">
-                                <h6 class="title">{{ __("Money Out Balance") }}</h6>
-                                <div class="user-info">
-                                    <h2 class="user-count">{{ get_default_currency_symbol() }}{{ get_amount($data['total_money_out']) }}</h2>
-                                </div>
-                                <div class="user-badge">
-                                    <span class="badge badge--info">{{ __("Completed") }} {{ get_default_currency_symbol() }}{{ formatNumberInKNotation($data['completed_money_out']) }}</span>
-                                    <span class="badge badge--warning">{{ __("Pending") }} {{ get_default_currency_symbol() }}{{ formatNumberInKNotation($data['pending_money_out']) }}</span>
-                                </div>
-                            </div>
-                            <div class="right">
-                                <div class="chart" id="chart8" data-percent="{{ $data['money_out_percent'] }}"><span>{{ round($data['money_out_percent']) }}%</span></div>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
                 <div class="col-xxxl-4 col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-12 mb-15">
                     <div class="dashbord-item">
                         <div class="dashboard-content">
@@ -97,6 +77,109 @@
                         </div>
                     </div>
                 </div>
+                <div class="col-xxxl-4 col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-12 mb-15">
+                    <div class="dashbord-item">
+                        <div class="dashboard-content">
+                            <div class="left">
+                                <h6 class="title">{{ __('Total Users') }}</h6>
+                                <div class="user-info">
+                                    <h2 class="user-count">{{ $data['total_users'] }}</h2>
+                                </div>
+                                <div class="user-badge">
+                                    <span class="badge badge--info">{{ __('Active') }} {{ $data['active_users'] }}</span>
+                                    <span class="badge badge--warning">{{ __('Unverified') }}
+                                        {{ $data['unverified_users'] }}</span>
+                                </div>
+                            </div>
+                            <div class="right">
+                                <div class="chart" id="chart12" data-percent="{{ $data['user_perchant'] }}">
+                                    <span>{{ round($data['user_perchant'], 2) }}%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-xxxl-4 col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-12 mb-15">
+                    <div class="dashbord-item">
+                        <div class="dashboard-content">
+                            <div class="left">
+                                <h6 class="title">{{ __('Total Supports Tickets') }}</h6>
+                                <div class="user-info">
+                                    <h2 class="user-count">{{ $data['total_tickets'] }}</h2>
+                                </div>
+                                <div class="user-badge">
+                                    <span class="badge badge--info">{{ __('Active') }}
+                                        {{ $data['active_tickets'] }}</span>
+                                    <span class="badge badge--warning">{{ __('Pending') }}
+                                        {{ $data['pending_tickets'] }}</span>
+                                </div>
+                            </div>
+                            <div class="right">
+                                <div class="chart" id="chart15" data-percent="{{ $data['ticket_perchant'] }}">
+                                    <span>{{ round($data['ticket_perchant'], 2) }}%</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {{-- <div class="col-xxxl-4 col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-12 mb-15">
+                    <div class="dashbord-item">
+                        <div class="dashboard-content">
+                            <div class="left">
+                                <h6 class="title">{{ __('Flutterwave Balance') }}</h6>
+                                <div class="user-info">
+                                    <h2 class="user-count">{{ get_default_currency_symbol() }}
+                                        {{ get_amount(flutterwaveBalance()) }}</h2>
+                                </div>
+                                <div class="user-badge">
+                                    <span class="badge badge--info">{{ get_default_currency_symbol() }}</span>
+
+                                </div>
+                            </div>
+                            <div class="right">
+                                <div class="chart" id="chart16" data-percent="100"><span>100%</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div> --}}
+                {{-- <div class="col-xxxl-4 col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-12 mb-15">
+                    <div class="dashbord-item">
+                        <div class="dashboard-content">
+                            <div class="left">
+                                <h6 class="title">{{ __("Money Out Balance") }}</h6>
+                                <div class="user-info">
+                                    <h2 class="user-count">{{ get_default_currency_symbol() }}{{ get_amount($data['total_money_out']) }}</h2>
+                                </div>
+                                <div class="user-badge">
+                                    <span class="badge badge--info">{{ __("Completed") }} {{ get_default_currency_symbol() }}{{ formatNumberInKNotation($data['completed_money_out']) }}</span>
+                                    <span class="badge badge--warning">{{ __("Pending") }} {{ get_default_currency_symbol() }}{{ formatNumberInKNotation($data['pending_money_out']) }}</span>
+                                </div>
+                            </div>
+                            <div class="right">
+                                <div class="chart" id="chart8" data-percent="{{ $data['money_out_percent'] }}"><span>{{ round($data['money_out_percent']) }}%</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div> --}}
+                {{-- <div class="col-xxxl-4 col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-12 mb-15">
+                    <div class="dashbord-item">
+                        <div class="dashboard-content">
+                            <div class="left">
+                                <h6 class="title">{{ __("Total Merchants") }}</h6>
+                                <div class="user-info">
+                                    <h2 class="user-count">{{ $data['total_merchants'] }}</h2>
+                                </div>
+                                <div class="user-badge">
+                                    <span class="badge badge--info">{{ __("Active") }} {{  $data['active_merchants'] }}</span>
+                                    <span class="badge badge--warning">{{ __("Unverified") }} {{ $data['unverified_merchants'] }}</span>
+                                </div>
+                            </div>
+                            <div class="right">
+                                <div class="chart" id="chart14" data-percent="{{ $data['merchant_perchant'] }}"><span>{{ round($data['merchant_perchant'],2) }}%</span></div>
+                            </div>
+                        </div>
+                    </div>
+                </div> --}}
                 {{-- <div class="col-xxxl-4 col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-12 mb-15">
                     <div class="dashbord-item">
                         <div class="dashboard-content">
@@ -135,93 +218,8 @@
                         </div>
                     </div>
                 </div> --}}
-                <div class="col-xxxl-4 col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-12 mb-15">
-                    <div class="dashbord-item">
-                        <div class="dashboard-content">
-                            <div class="left">
-                                <h6 class="title">{{ __('Total Users') }}</h6>
-                                <div class="user-info">
-                                    <h2 class="user-count">{{ $data['total_users'] }}</h2>
-                                </div>
-                                <div class="user-badge">
-                                    <span class="badge badge--info">{{ __('Active') }} {{ $data['active_users'] }}</span>
-                                    <span class="badge badge--warning">{{ __('Unverified') }}
-                                        {{ $data['unverified_users'] }}</span>
-                                </div>
-                            </div>
-                            <div class="right">
-                                <div class="chart" id="chart12" data-percent="{{ $data['user_perchant'] }}">
-                                    <span>{{ round($data['user_perchant'], 2) }}%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-                {{-- <div class="col-xxxl-4 col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-12 mb-15">
-                    <div class="dashbord-item">
-                        <div class="dashboard-content">
-                            <div class="left">
-                                <h6 class="title">{{ __("Total Merchants") }}</h6>
-                                <div class="user-info">
-                                    <h2 class="user-count">{{ $data['total_merchants'] }}</h2>
-                                </div>
-                                <div class="user-badge">
-                                    <span class="badge badge--info">{{ __("Active") }} {{  $data['active_merchants'] }}</span>
-                                    <span class="badge badge--warning">{{ __("Unverified") }} {{ $data['unverified_merchants'] }}</span>
-                                </div>
-                            </div>
-                            <div class="right">
-                                <div class="chart" id="chart14" data-percent="{{ $data['merchant_perchant'] }}"><span>{{ round($data['merchant_perchant'],2) }}%</span></div>
-                            </div>
-                        </div>
-                    </div>
-                </div> --}}
-                <div class="col-xxxl-4 col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-12 mb-15">
-                    <div class="dashbord-item">
-                        <div class="dashboard-content">
-                            <div class="left">
-                                <h6 class="title">{{ __('Total Supports Tickets') }}</h6>
-                                <div class="user-info">
-                                    <h2 class="user-count">{{ $data['total_tickets'] }}</h2>
-                                </div>
-                                <div class="user-badge">
-                                    <span class="badge badge--info">{{ __('Active') }}
-                                        {{ $data['active_tickets'] }}</span>
-                                    <span class="badge badge--warning">{{ __('Pending') }}
-                                        {{ $data['pending_tickets'] }}</span>
-                                </div>
-                            </div>
-                            <div class="right">
-                                <div class="chart" id="chart15" data-percent="{{ $data['ticket_perchant'] }}">
-                                    <span>{{ round($data['ticket_perchant'], 2) }}%</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                {{-- <div class="col-xxxl-4 col-xxl-3 col-xl-3 col-lg-6 col-md-6 col-sm-12 mb-15">
-                    <div class="dashbord-item">
-                        <div class="dashboard-content">
-                            <div class="left">
-                                <h6 class="title">{{ __("Flutterwave Balance") }}</h6>
-                                <div class="user-info">
-                                    <h2 class="user-count">{{  get_default_currency_symbol() }} {{ get_amount(flutterwaveBalance()) }}</h2>
-                                </div>
-                                <div class="user-badge">
-                                    {{-- <span class="badge badge--info">{{  get_default_currency_symbol() }}</span> --}}
-
             </div>
         </div>
-        {{-- <div class="right">
-            <div class="chart" id="chart16" data-percent="100"><span>100%</span></div>
-        </div> --}}
-    </div>
-    </div>
-    </div> --}}
-
-    </div>
-    </div>
     </div>
     <div class="chart-area mt-15">
         <div class="row mb-15-none">

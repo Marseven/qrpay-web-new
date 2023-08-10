@@ -154,8 +154,8 @@
                                 'icon' => 'menu-icon las la-ticket',
                                 'links' => [
                                     [
-                                        'title' => 'Categories',
-                                        'route' => 'admin.ticket.pay.category.index',
+                                        'title' => 'Tickets',
+                                        'route' => 'admin.ticket.pay.ticket.index',
                                     ],
                                     [
                                         'title' => 'Pending Logs',

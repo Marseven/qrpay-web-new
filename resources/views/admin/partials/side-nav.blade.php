@@ -148,10 +148,10 @@
                             //         ]
                             //     ],
                             // ],
-                
+
                             [
                                 'title' => 'Ticket Pay Logs',
-                                'icon' => 'menu-icon las la-ticket',
+                                'icon' => 'menu-icon las la-shopping-bag',
                                 'links' => [
                                     [
                                         'title' => 'Tickets',
@@ -175,32 +175,32 @@
                                     ],
                                 ],
                             ],
-                            [
-                                'title' => 'Bill Pay Logs',
-                                'icon' => 'menu-icon las la-shopping-bag',
-                                'links' => [
-                                    [
-                                        'title' => 'Categories',
-                                        'route' => 'admin.bill.pay.category.index',
-                                    ],
-                                    [
-                                        'title' => 'Pending Logs',
-                                        'route' => 'admin.bill.pay.pending',
-                                    ],
-                                    [
-                                        'title' => 'Completed Logs',
-                                        'route' => 'admin.bill.pay.complete',
-                                    ],
-                                    [
-                                        'title' => 'Canceled Logs',
-                                        'route' => 'admin.bill.pay.canceled',
-                                    ],
-                                    [
-                                        'title' => 'All Logs',
-                                        'route' => 'admin.bill.pay.index',
-                                    ],
-                                ],
-                            ],
+                            // [
+                            //     'title' => 'Bill Pay Logs',
+                            //     'icon' => 'menu-icon las la-shopping-bag',
+                            //     'links' => [
+                            //         [
+                            //             'title' => 'Categories',
+                            //             'route' => 'admin.bill.pay.category.index',
+                            //         ],
+                            //         [
+                            //             'title' => 'Pending Logs',
+                            //             'route' => 'admin.bill.pay.pending',
+                            //         ],
+                            //         [
+                            //             'title' => 'Completed Logs',
+                            //             'route' => 'admin.bill.pay.complete',
+                            //         ],
+                            //         [
+                            //             'title' => 'Canceled Logs',
+                            //             'route' => 'admin.bill.pay.canceled',
+                            //         ],
+                            //         [
+                            //             'title' => 'All Logs',
+                            //             'route' => 'admin.bill.pay.index',
+                            //         ],
+                            //     ],
+                            // ],
                             [
                                 'title' => 'Mobile Topup',
                                 'icon' => 'menu-icon las la-mobile',
@@ -448,7 +448,7 @@
                     <li class="sidebar-menu-header">{{ __('Setup Web Content') }}</li>
                     @php
                         $current_url = URL::current();
-                        
+
                         $setup_section_childs = [
                             setRoute('admin.setup.sections.section', 'auth-section'),
                             setRoute('admin.setup.sections.section', 'app-section'),

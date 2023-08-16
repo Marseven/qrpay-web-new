@@ -238,6 +238,25 @@
                     </div>
                 </div>
             </div>
+
+            <div class="col-lg-6 mb-15">
+                <div class="chart-wrapper">
+                    <div class="chart-area-header">
+                        <h5 class="title">{{ __('User Analytics') }}</h5>
+                    </div>
+                    <div class="chart-container">
+                        <div id="chart4" data-chart_four_data="{{ json_encode($data['chart_four_data']) }}"
+                            class="balance-chart"></div>
+                    </div>
+                    <div class="chart-area-footer">
+                        <div class="chart-btn">
+                            <a href="{{ setRoute('admin.users.index') }}"
+                                class="btn--base w-100">{{ __('View Users') }}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
             {{-- <div class="col-xxl-6 col-xl-6 col-lg-6 mb-15">
                 <div class="chart-wrapper">
                     <div class="chart-area-header">
@@ -266,23 +285,6 @@
                     </div>
                 </div>
             </div> --}}
-            <div class="col-lg-6 mb-15">
-                <div class="chart-wrapper">
-                    <div class="chart-area-header">
-                        <h5 class="title">{{ __('User Analytics') }}</h5>
-                    </div>
-                    <div class="chart-container">
-                        <div id="chart4" data-chart_four_data="{{ json_encode($data['chart_four_data']) }}"
-                            class="balance-chart"></div>
-                    </div>
-                    <div class="chart-area-footer">
-                        <div class="chart-btn">
-                            <a href="{{ setRoute('admin.users.index') }}"
-                                class="btn--base w-100">{{ __('View Users') }}</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
             {{-- <div class="col-lg-4 mb-15">
                 <div class="chart-wrapper">

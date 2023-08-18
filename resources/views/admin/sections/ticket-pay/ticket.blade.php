@@ -25,7 +25,7 @@
                 'url' => setRoute('admin.dashboard'),
             ],
         ],
-        'active' => __('Setup Bill Category'),
+        'active' => __('Setup Ticket Category'),
     ])
 @endsection
 

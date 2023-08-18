@@ -33,7 +33,7 @@ class TicketController extends Controller
             'allTicket',
         ));
     }
-    public function storeCategory(Request $request)
+    public function storeTicket(Request $request)
     {
 
         $validator = Validator::make($request->all(), [
@@ -60,7 +60,7 @@ class TicketController extends Controller
             return back()->withErrors($validator)->withInput()->with(['error' => ['Something went worng! Please try again.']]);
         }
     }
-    public function categoryUpdate(Request $request)
+    public function ticketUpdate(Request $request)
     {
         $target = $request->target;
         $category = Ticket::where('id', $target)->first();
@@ -90,7 +90,7 @@ class TicketController extends Controller
         }
     }
 
-    public function categoryStatusUpdate(Request $request)
+    public function ticketStatusUpdate(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'status'                    => 'required|boolean',
@@ -121,7 +121,7 @@ class TicketController extends Controller
         $success = ['success' => ['Category status updated successfully!']];
         return Response::success($success, null, 200);
     }
-    public function categoryDelete(Request $request)
+    public function ticketDelete(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'target'        => 'required|string|exists:ticket_pay_categories,id',
@@ -137,7 +137,7 @@ class TicketController extends Controller
 
         return back()->with(['success' => ['Category deleted successfully!']]);
     }
-    public function categorySearch(Request $request)
+    public function ticketSearch(Request $request)
     {
         $validator = Validator::make($request->all(), [
             'text'  => 'required|string',

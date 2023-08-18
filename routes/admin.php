@@ -160,7 +160,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     Route::controller(TicketController::class)->prefix('ticket-pay')->name('ticket.pay.')->group(function () {
         //manage ticket category
         Route::get('ticket/index', 'ticketPayList')->name('ticket.index');
-        Route::post('ticket/store', 'storeCategory')->name('ticket.store');
+        Route::post('ticket/store', 'storeTicket')->name('ticket.store');
         Route::put('ticket/status/update', 'ticketStatusUpdate')->name('ticket.status.update');
         Route::put('ticket/update', 'ticketUpdate')->name('ticket.update');
         Route::delete('ticket/delete', 'ticketDelete')->name('ticket.delete');

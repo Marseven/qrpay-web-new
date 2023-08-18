@@ -1,8 +1,8 @@
-<table class="custom-table category-search-table">
+<table class="custom-table ticket-search-table">
     <thead>
         <tr>
 
-            <th>Category Name</th>
+            <th>Ticket Name</th>
             <th></th>
             <th>Created Time</th>
             <th></th>
@@ -28,7 +28,7 @@
                         'options' => ['Enable' => 1, 'Disable' => 0],
                         'onload' => true,
                         'data_target' => $item->id,
-                        'permission' => 'admin.ticket.pay.category.status.update',
+                        'permission' => 'admin.ticket.pay.ticket.status.update',
                     ])
                 </td>
                 <td></td>
@@ -37,13 +37,13 @@
                     @include('admin.components.link.edit-default', [
                         'href' => 'javascript:void(0)',
                         'class' => 'edit-modal-button',
-                        'permission' => 'admin.ticket.pay.category.update',
+                        'permission' => 'admin.ticket.pay.ticket.update',
                     ])
 
                     @include('admin.components.link.delete-default', [
                         'href' => 'javascript:void(0)',
                         'class' => 'delete-modal-button',
-                        'permission' => 'admin.ticket.pay.category.delete',
+                        'permission' => 'admin.ticket.pay.ticket.delete',
                     ])
 
                 </td>
@@ -58,7 +58,7 @@
     <script>
         $(document).ready(function() {
             // Switcher
-            switcherAjax("{{ setRoute('admin.bill.pay.category.status.update') }}");
+            switcherAjax("{{ setRoute('admin.ticket.pay.ticket.status.update') }}");
         })
     </script>
 @endpush

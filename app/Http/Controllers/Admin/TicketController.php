@@ -27,10 +27,10 @@ class TicketController extends Controller
     public function ticketPayList()
     {
         $page_title = "Ticket Pay Type";
-        $allCategory = Ticket::orderByDesc('id')->paginate(10);
+        $allTicket = Ticket::orderByDesc('id')->paginate(10);
         return view('admin.sections.ticket-pay.ticket', compact(
             'page_title',
-            'allCategory',
+            'allTicket',
         ));
     }
     public function storeCategory(Request $request)

@@ -48,15 +48,15 @@
             </div>
             <div class="table-responsive">
                 @include('admin.components.data-table.ticket-type-table', [
-                    'data' => $allCategory,
+                    'data' => $allTicket,
                 ])
             </div>
         </div>
-        {{ get_paginate($allCategory) }}
+        {{ get_paginate($allTicket) }}
     </div>
 
     {{-- Currency Edit Modal --}}
-    @include('admin.components.modals.edit-ticket-category')
+    @include('admin.components.modals.edit-ticket-type')
 
     {{-- Currency Add Modal --}}
     @include('admin.components.modals.ticket-add')

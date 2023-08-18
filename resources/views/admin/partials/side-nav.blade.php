@@ -1,3 +1,6 @@
+@php
+    $current_url = URL::current();
+@endphp
 <div class="sidebar">
     <div class="sidebar-inner">
         <div class="sidebar-logo">
@@ -505,7 +508,6 @@
                 @if (admin_permission_by_name('admin.setup.sections.section'))
                     <li class="sidebar-menu-header">{{ __('Setup Web Content') }}</li>
                     @php
-                        $current_url = URL::current();
 
                         $setup_section_childs = [
                             setRoute('admin.setup.sections.section', 'auth-section'),

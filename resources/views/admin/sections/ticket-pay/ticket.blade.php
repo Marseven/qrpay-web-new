@@ -73,7 +73,7 @@
 
         $(".delete-modal-button").click(function() {
             var oldData = JSON.parse($(this).parents("tr").attr("data-item"));
-            var actionRoute = "{{ setRoute('admin.ticket.pay.type.delete') }}";
+            var actionRoute = "{{ setRoute('admin.ticket.pay.ticket.delete') }}";
             var target = oldData.id;
             var message = `Are you sure to delete <strong>${oldData.name}</strong> Category?`;
             openDeleteModal(actionRoute, target, message);

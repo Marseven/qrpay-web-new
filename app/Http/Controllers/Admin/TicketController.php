@@ -37,16 +37,16 @@ class TicketController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'name'      => 'required|string|max:200|unique:ticket_pay_categories,name',
+            'name'      => 'required|string|max:200|unique:tickets,name',
         ]);
         if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput()->with('modal', 'category-add');
+            return back()->withErrors($validator)->withInput()->with('modal', 'ticket-add');
         }
         $validated = $validator->validate();
         $slugData = Str::slug($request->name);
         $makeUnique = Ticket::where('slug',  $slugData)->first();
         if ($makeUnique) {
-            return back()->with(['error' => [$request->name . ' ' . 'Category Already Exists!']]);
+            return back()->with(['error' => [$request->name . ' ' . 'Ticket Already Exists!']]);
         }
         $admin = Auth::user();
 
@@ -55,7 +55,7 @@ class TicketController extends Controller
         $validated['slug']          = $slugData;
         try {
             Ticket::create($validated);
-            return back()->with(['success' => ['Category Saved Successfully!']]);
+            return back()->with(['success' => ['Ticket Type Saved Successfully!']]);
         } catch (Exception $e) {
             return back()->withErrors($validator)->withInput()->with(['error' => ['Something went worng! Please try again.']]);
         }

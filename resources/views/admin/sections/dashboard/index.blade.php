@@ -257,7 +257,7 @@
                 </div>
             </div>
 
-            {{-- <div class="col-xxl-6 col-xl-6 col-lg-6 mb-15">
+            <div class="col-xxl-6 col-xl-6 col-lg-6 mb-15">
                 <div class="chart-wrapper">
                     <div class="chart-area-header">
                         <h5 class="title">{{ __('Monthly Virtual Card Chart') }}</h5>
@@ -269,8 +269,8 @@
                             class="revenue-chart"></div>
                     </div>
                 </div>
-            </div> --}}
-            {{-- <div class="col-lg-6 mb-15">
+            </div>
+            <div class="col-lg-6 mb-15">
                 <div class="chart-wrapper">
                     <div class="chart-area-header">
                         <h5 class="title">
@@ -284,9 +284,9 @@
                             data-month_day="{{ json_encode($data['month_day']) }}" class="sales-chart"></div>
                     </div>
                 </div>
-            </div> --}}
+            </div>
 
-            {{-- <div class="col-lg-4 mb-15">
+            <div class="col-lg-4 mb-15">
                 <div class="chart-wrapper">
                     <div class="chart-area-header">
                         <h5 class="title">{{ __('Merchant Analytics') }}</h5>
@@ -302,7 +302,7 @@
                         </div>
                     </div>
                 </div>
-            </div> --}}
+            </div>
         </div>
     </div>
     <div class="table-area  mt-15">
@@ -356,7 +356,8 @@
                                 <td>{{ number_format($item->request_amount, 2) }} {{ get_default_currency_code() }}</td>
                                 <td><span class="text--info">{{ $item->currency->name }}</span></td>
                                 <td>
-                                    <span class="{{ $item->stringStatus->class }}">{{ $item->stringStatus->value }}</span>
+                                    <span
+                                        class="{{ $item->stringStatus->class }}">{{ $item->stringStatus->value }}</span>
                                 </td>
                                 <td>{{ $item->created_at->format('d-m-y h:i:s A') }}</td>
                                 <td>

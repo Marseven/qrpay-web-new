@@ -33,7 +33,7 @@
     <div class="table-area">
         <div class="table-wrapper">
             <div class="table-header">
-                <h5 class="title">{{ __('Bill Categories') }}</h5>
+                <h5 class="title">{{ __('Ticket Type') }}</h5>
                 <div class="table-btn-area">
                     @include('admin.components.search-input', [
                         'name' => 'ticket_search',

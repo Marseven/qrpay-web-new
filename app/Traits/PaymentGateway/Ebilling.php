@@ -85,7 +85,7 @@ trait Ebilling
             $bill_id = $response['e_bill']['bill_id'];
             $this->ebillingJunkInsert($response);
             $url = $post_url . "/?invoice=$bill_id";
-            dd($url);
+
             // Redirect to E-Billing portal
             return redirect()->away($url);
         }
@@ -142,21 +142,26 @@ trait Ebilling
         // Get status code
         $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
-        if (isset($response['id']) && $response['id'] != "" && isset($response['status']) && $response['status'] == "CREATED" && isset($response['links']) && is_array($response['links'])) {
-            foreach ($response['links'] as $item) {
-                if ($item['rel'] == "approve") {
-                    $this->ebillingJunkInsert($response);
-                    return $response;
-                    break;
-                }
-            }
-        }
 
-        if (isset($response['error']) && is_array($response['error'])) {
-            throw new Exception($response['error']['message']);
-        }
+        // Check status <> 200
+        if ($status < 200  || $status > 299) {
+            //die("Error: call to URL failed with status $status, response $json_response, curl_error " . curl_error($curl) . ", curl_errno " . curl_errno($curl));
+            throw new Exception(curl_error($curl));
+        } else {
+            curl_close($curl);
 
-        throw new Exception("Something went worng! Please try again.");
+            // Get response in JSON format
+            $response = json_decode($json_response, true);
+
+            // Get unique transaction id
+            $bill_id = $response['e_bill']['bill_id'];
+            $this->ebillingJunkInsert($response);
+            $url = $post_url . "/?invoice=$bill_id";
+            dd($url);
+            // Redirect to E-Billing portal
+            //return redirect()->away($url);
+            return $response;
+        }
     }
 
     public function getEbillingCredentials($output)

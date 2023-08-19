@@ -5,9 +5,7 @@
             <th>Ticket Name</th>
             <th>Ticket Price</th>
             <th>Created Time</th>
-            <th></th>
             <th>status</th>
-            <th></th>
             <th>Action</th>
         </tr>
     </thead>
@@ -19,8 +17,6 @@
                 <td>{{ $item->label }}</td>
                 <td>{{ get_amount($item->price) }} {{ get_default_currency_symbol() }}</td>
                 <td>{{ $item->created_at->format('d-m-y h:i:s A') }}</td>
-                <td></td>
-
                 <td>
                     @include('admin.components.form.switcher', [
                         'name' => 'ticket_status',
@@ -31,8 +27,6 @@
                         'permission' => 'admin.ticket.pay.ticket.status.update',
                     ])
                 </td>
-                <td></td>
-
                 <td>
                     @include('admin.components.link.edit-default', [
                         'href' => 'javascript:void(0)',

@@ -37,22 +37,19 @@ class TicketController extends Controller
     {
 
         $validator = Validator::make($request->all(), [
-            'name'      => 'required|string|max:200|unique:tickets,name',
+            'label'      => 'required|string|max:200|unique:tickets,label',
         ]);
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput()->with('modal', 'ticket-add');
         }
         $validated = $validator->validate();
-        $slugData = Str::slug($request->name);
-        $makeUnique = Ticket::where('slug',  $slugData)->first();
-        if ($makeUnique) {
-            return back()->with(['error' => [$request->name . ' ' . 'Ticket Already Exists!']]);
-        }
+
         $admin = Auth::user();
 
         $validated['admin_id']      = $admin->id;
-        $validated['name']          = $request->name;
-        $validated['slug']          = $slugData;
+        $validated['label']          = $request->label;
+        $validated['description']   = $request->description;
+        $validated['price']         = $request->price;
         try {
             Ticket::create($validated);
             return back()->with(['success' => ['Ticket Type Saved Successfully!']]);
@@ -63,28 +60,24 @@ class TicketController extends Controller
     public function ticketUpdate(Request $request)
     {
         $target = $request->target;
-        $category = Ticket::where('id', $target)->first();
+        $ticket = Ticket::where('id', $target)->first();
         $validator = Validator::make($request->all(), [
-            'name'      => 'required|string|max:200',
+            'label'      => 'required|string|max:200',
         ]);
         if ($validator->fails()) {
-            return back()->withErrors($validator)->withInput()->with('modal', 'edit-category');
+            return back()->withErrors($validator)->withInput()->with('modal', 'edit-ticket');
         }
         $validated = $validator->validate();
 
-        $slugData = Str::slug($request->name);
-        $makeUnique = Ticket::where('id', "!=", $category->id)->where('slug',  $slugData)->first();
-        if ($makeUnique) {
-            return back()->with(['error' => [$request->name . ' ' . 'Category Already Exists!']]);
-        }
+
         $admin = Auth::user();
-        $validated['admin_id']      = $admin->id;
-        $validated['name']          = $request->name;
-        $validated['slug']          = $slugData;
+        $validated['label']          = $request->label;
+        $validated['description']   = $request->description;
+        $validated['price']         = $request->price;
 
         try {
-            $category->fill($validated)->save();
-            return back()->with(['success' => ['Category Updated Successfully!']]);
+            $ticket->fill($validated)->save();
+            return back()->with(['success' => ['Ticket Type Updated Successfully!']]);
         } catch (Exception $e) {
             return back()->withErrors($validator)->withInput()->with(['error' => ['Something went worng! Please try again.']]);
         }
@@ -101,16 +94,16 @@ class TicketController extends Controller
             return Ticket::error($error, null, 400);
         }
         $validated = $validator->safe()->all();
-        $category_id = $validated['data_target'];
+        $ticket_id = $validated['data_target'];
 
-        $category = Ticket::where('id', $category_id)->first();
-        if (!$category) {
-            $error = ['error' => ['Category record not found in our system.']];
+        $ticket = Ticket::where('id', $ticket_id)->first();
+        if (!$ticket) {
+            $error = ['error' => ['Ticket Type record not found in our system.']];
             return Response::error($error, null, 404);
         }
 
         try {
-            $category->update([
+            $ticket->update([
                 'status' => ($validated['status'] == true) ? false : true,
             ]);
         } catch (Exception $e) {
@@ -118,25 +111,27 @@ class TicketController extends Controller
             return Response::error($error, null, 500);
         }
 
-        $success = ['success' => ['Category status updated successfully!']];
+        $success = ['success' => ['Ticket Type status updated successfully!']];
         return Response::success($success, null, 200);
     }
+
     public function ticketDelete(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'target'        => 'required|string|exists:ticket_pay_categories,id',
+            'target'        => 'required|string|exists:tickets,id',
         ]);
         $validated = $validator->validate();
-        $category = Ticket::where("id", $validated['target'])->first();
+        $ticket = Ticket::where("id", $validated['target'])->first();
 
         try {
-            $category->delete();
+            $ticket->delete();
         } catch (Exception $e) {
             return back()->with(['error' => ['Something went worng! Please try again.']]);
         }
 
-        return back()->with(['success' => ['Category deleted successfully!']]);
+        return back()->with(['success' => ['Ticket Type deleted successfully!']]);
     }
+
     public function ticketSearch(Request $request)
     {
         $validator = Validator::make($request->all(), [
@@ -150,12 +145,13 @@ class TicketController extends Controller
 
         $validated = $validator->validate();
 
-        $allCategory = Ticket::search($validated['text'])->select()->limit(10)->get();
-        return view('admin.components.search.ticket-category-search', compact(
-            'allCategory',
+        $allTicket = Ticket::search($validated['text'])->select()->limit(10)->get();
+        return view('admin.components.search.ticket-type-search', compact(
+            'allTicket',
         ));
     }
     //================================================category end=============================
+
     /**
      * Display a listing of the resource.
      *
@@ -230,7 +226,7 @@ class TicketController extends Controller
         $data = Transaction::where('id', $id)->with(
             'user:id,firstname,lastname,email,username,full_mobile',
         )->where('type', PaymentGatewayConst::TICKETPAY)->first();
-        $page_title = "Bill Pay details for" . '  ' . $data->trx_id . ' (' . $data->details->ticket_type_name . ")";
+        $page_title = "Ticket Pay details for" . '  ' . $data->trx_id . ' (' . $data->details->ticket_type_name . ")";
         return view('admin.sections.ticket-pay.details', compact(
             'page_title',
             'data'
@@ -253,8 +249,8 @@ class TicketController extends Controller
 
                 //notification
                 $notification_content = [
-                    'title'         => "Bill Pay",
-                    'message'       => "Your Bill Pay request approved by admin " . getAmount($data->request_amount, 2) . ' ' . get_default_currency_code() . " & Bill Number is: " . @$data->details->ticket_number . " successful.",
+                    'title'         => "Ticket Pay",
+                    'message'       => "Your Ticket Pay request approved by admin " . getAmount($data->request_amount, 2) . ' ' . get_default_currency_code() . " & Ticket Number is: " . @$data->details->ticket_number . " successful.",
                     'image'         => files_asset_path('profile-default'),
                 ];
 
@@ -280,7 +276,7 @@ class TicketController extends Controller
                 }
             }
 
-            return redirect()->back()->with(['success' => ['Bill Pay request approved successfully']]);
+            return redirect()->back()->with(['success' => ['Ticket Pay request approved successfully']]);
         } catch (Exception $e) {
             return back()->with(['error' => [$e->getMessage()]]);
         }
@@ -313,8 +309,8 @@ class TicketController extends Controller
 
                 //user notifications
                 $notification_content = [
-                    'title'         => "Bill Pay",
-                    'message'       => "Your Bill Pay request rejected by admin " . getAmount($data->request_amount, 2) . ' ' . get_default_currency_code() . " & Bill Number is: " . @$data->details->ticket_number,
+                    'title'         => "Ticket Pay",
+                    'message'       => "Your Ticket Pay request rejected by admin " . getAmount($data->request_amount, 2) . ' ' . get_default_currency_code() . " & Ticket Number is: " . @$data->details->ticket_number,
                     'image'         => files_asset_path('profile-default'),
                 ];
 
@@ -340,7 +336,7 @@ class TicketController extends Controller
                     DB::commit();
                 }
             }
-            return redirect()->back()->with(['success' => ['Bill Pay request rejected successfully']]);
+            return redirect()->back()->with(['success' => ['Ticket Pay request rejected successfully']]);
         } catch (Exception $e) {
             return back()->with(['error' => [$e->getMessage()]]);
         }

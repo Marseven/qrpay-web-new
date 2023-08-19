@@ -51,6 +51,7 @@ class TicketController extends Controller
         $validated['description']   = $request->description;
         $validated['price']         = $request->price;
         try {
+            dd($validated);
             Ticket::create($validated);
             return back()->with(['success' => ['Ticket Type Saved Successfully!']]);
         } catch (Exception $e) {

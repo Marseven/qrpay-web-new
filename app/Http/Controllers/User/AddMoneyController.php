@@ -62,7 +62,7 @@ class AddMoneyController extends Controller
         } catch (Exception $e) {
             return back()->with(['error' => [$e->getMessage()]]);
         }
-
+        dd($instance);
         return $instance;
     }
 

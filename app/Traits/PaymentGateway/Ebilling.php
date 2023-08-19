@@ -93,7 +93,7 @@ trait Ebilling
             echo "<script language='JavaScript'>";
             echo "document.frm.submit();";
             echo "</script>";
-            die();
+            die;
         }
     }
 

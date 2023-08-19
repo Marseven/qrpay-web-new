@@ -29,7 +29,7 @@
                             </div>
 
                             <div class="dashboard-icon">
-                                <img src="{{ @$baseCurrency->currencyImage }}" alt="flag" />
+                                <i class="fas fa-money"></i>
                             </div>
                         </div>
                     </div>

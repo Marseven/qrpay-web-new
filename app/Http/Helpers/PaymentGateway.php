@@ -60,8 +60,7 @@ class PaymentGateway
             ]);
         }
 
-        dd($user_wallet);
-        die;
+
         if ($gateway_currency->gateway->isAutomatic()) {
             $this->output['gateway']    = $gateway_currency->gateway;
             $this->output['currency']   = $gateway_currency;
@@ -78,7 +77,8 @@ class PaymentGateway
 
         // limit validation
         $this->limitValidation($this->output);
-
+        dd($gateway_currency->gateway);
+        die;
         return $this;
     }
 

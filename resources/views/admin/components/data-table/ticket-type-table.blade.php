@@ -35,8 +35,8 @@
 
                 <td>
                     @include('admin.components.link.edit-default', [
-                        'href' => '#edit-ticket',
-                        'class' => 'modal-btn',
+                        'href' => 'javascript:void(0)',
+                        'class' => 'edit-modal-button',
                         'permission' => 'admin.ticket.pay.ticket.update',
                     ])
 

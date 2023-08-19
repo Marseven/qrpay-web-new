@@ -51,7 +51,7 @@
                     var editModal = $("#edit-ticket");
                     editModal.find("form").first().find("input[name=target]").val(oldData.id);
                     editModal.find("input[name=name]").val(oldData.name)
-                    openModalBySelector("#edit-category");
+                    openModalBySelector("#edit-ticket");
 
                 });
             });

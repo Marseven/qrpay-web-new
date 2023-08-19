@@ -23,7 +23,7 @@
 
                 <td>
                     @include('admin.components.form.switcher', [
-                        'name' => 'category_status',
+                        'name' => 'ticket_status',
                         'value' => $item->status,
                         'options' => ['Enable' => 1, 'Disable' => 0],
                         'onload' => true,

@@ -50,7 +50,8 @@
                     var oldData = JSON.parse($(this).parents("tr").attr("data-item"));
                     var editModal = $("#edit-ticket");
                     editModal.find("form").first().find("input[name=target]").val(oldData.id);
-                    editModal.find("input[name=name]").val(oldData.name)
+                    editModal.find("input[name=label]").val(oldData.label);
+                    editModal.find("input[name=price]").val(oldData.price);
                     openModalBySelector("#edit-ticket");
 
                 });

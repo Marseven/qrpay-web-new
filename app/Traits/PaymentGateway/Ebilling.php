@@ -156,10 +156,8 @@ trait Ebilling
             // Get unique transaction id
             $bill_id = $response['e_bill']['bill_id'];
             $this->ebillingJunkInsert($response);
-            $url = $post_url . "/?invoice=$bill_id";
-            dd($url);
+
             // Redirect to E-Billing portal
-            //return redirect()->away($url);
             return $response;
         }
     }

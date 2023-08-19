@@ -118,7 +118,7 @@
         </div>
         <div class="chart-area mt-30">
             <div class="row mb-20-none">
-                <div class="col-xxl-7 col-xl-7 col-lg-7 mb-20">
+                <div class="col-xxl-12 col-xl-12 col-lg-12 mb-20">
                     <div class="chart-wrapper">
                         <div class="dashboard-header-wrapper">
                             <h4 class="title">{{ __('Add Money Chart') }}</h4>
@@ -129,7 +129,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="col-xxl-5 col-xl-5 col-lg-5 mb-20">
+                {{-- <div class="col-xxl-5 col-xl-5 col-lg-5 mb-20">
                     <div class="chart-wrapper">
                         <div class="dashboard-header-wrapper">
                             <h4 class="title">{{ __('Withdraw Money') }}</h4>
@@ -139,7 +139,7 @@
                                 data-month_day="{{ json_encode($chartData['month_day']) }}" class="chart"></div>
                         </div>
                     </div>
-                </div>
+                </div> --}}
             </div>
         </div>
         <div class="dashboard-list-area mt-20">

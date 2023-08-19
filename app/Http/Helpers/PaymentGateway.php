@@ -35,8 +35,6 @@ class PaymentGateway
 
     public static function init(array $data)
     {
-        dd($data);
-        die;
         return new PaymentGateway($data);
     }
 
@@ -62,7 +60,8 @@ class PaymentGateway
             ]);
         }
 
-
+        dd($user_wallet);
+        die;
         if ($gateway_currency->gateway->isAutomatic()) {
             $this->output['gateway']    = $gateway_currency->gateway;
             $this->output['currency']   = $gateway_currency;

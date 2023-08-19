@@ -61,7 +61,7 @@ trait Ebilling
 
         throw new Exception("Something went worng! Please try again.");
     }
-    public function paypalInitApi($output = null)
+    public function ebillingInitApi($output = null)
     {
         if (!$output) $output = $this->output;
         $credentials = $this->getPaypalCredentials($output);
@@ -104,7 +104,7 @@ trait Ebilling
         throw new Exception("Something went worng! Please try again.");
     }
 
-    public function getPaypalCredentials($output)
+    public function getEbillingCredentials($output)
     {
         $gateway = $output['gateway'] ?? null;
         if (!$gateway) throw new Exception("Payment gateway not available");
@@ -169,7 +169,7 @@ trait Ebilling
     }
 
 
-    public static function paypalConfig($credentials, $amount_info)
+    public static function ebillingConfig($credentials, $amount_info)
     {
         $config = [
             'mode'    => $credentials->mode ?? 'sandbox',
@@ -192,7 +192,7 @@ trait Ebilling
         return $config;
     }
 
-    public function paypalJunkInsert($response)
+    public function ebillingJunkInsert($response)
     {
 
         $output = $this->output;
@@ -216,7 +216,7 @@ trait Ebilling
         ]);
     }
 
-    public function paypalSuccess($output = null)
+    public function ebillingSuccess($output = null)
     {
         if (!$output) $output = $this->output;
         $token = $this->output['tempData']['identifier'] ?? "";
@@ -237,7 +237,7 @@ trait Ebilling
         if (empty($token)) throw new Exception('Transaction faild. Record didn\'t saved properly. Please try again.');
     }
 
-    public function paypalPaymentCaptured($response, $output)
+    public function ebillingPaymentCaptured($response, $output)
     {
         // payment successfully captured record saved to database
         $output['capture'] = $response;

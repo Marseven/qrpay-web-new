@@ -156,7 +156,7 @@ class TicketController extends Controller
      */
     public function index()
     {
-        $page_title = "All Logs";
+        $page_title = "Toutes les transactions";
         $transactions = Transaction::with(
             'user:id,firstname,lastname,email,username,full_mobile',
 
@@ -173,7 +173,7 @@ class TicketController extends Controller
      */
     public function pending()
     {
-        $page_title = "Pending Logs";
+        $page_title = "Transactions en cours";
         $transactions = Transaction::with(
             'user:id,firstname,lastname,email,username,full_mobile',
 
@@ -191,7 +191,7 @@ class TicketController extends Controller
      */
     public function complete()
     {
-        $page_title = "Complete Logs";
+        $page_title = "Transactions Terminées";
         $transactions = Transaction::with(
             'user:id,firstname,lastname,email,username,full_mobile',
         )->where('type', PaymentGatewayConst::TICKETPAY)->where('status', 1)->latest()->paginate(20);
@@ -208,7 +208,7 @@ class TicketController extends Controller
      */
     public function canceled()
     {
-        $page_title = "Canceled Logs";
+        $page_title = "Transactions Annulées";
         $transactions = Transaction::with(
             'user:id,firstname,lastname,email,username,full_mobile',
         )->where('type', PaymentGatewayConst::TICKETPAY)->where('status', 4)->latest()->paginate(20);

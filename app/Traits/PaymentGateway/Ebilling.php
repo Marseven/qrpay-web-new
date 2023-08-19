@@ -263,7 +263,7 @@ trait Ebilling
         return true;
     }
 
-    public function createTransaction($output, $trx_id)
+    public function ebillingCreateTransaction($output, $trx_id)
     {
         $trx_id =  $trx_id;
         $inserted_id = $this->insertRecord($output, $trx_id);
@@ -279,7 +279,7 @@ trait Ebilling
         }
     }
 
-    public function insertRecord($output, $trx_id)
+    public function ebillingInsertRecord($output, $trx_id)
     {
         $trx_id =  $trx_id;
         $token = $this->output['tempData']['identifier'] ?? "";
@@ -310,7 +310,7 @@ trait Ebilling
         return $id;
     }
 
-    public function updateWalletBalance($output)
+    public function ebillingUpdateWalletBalance($output)
     {
         $update_amount = $output['wallet']->balance + $output['amount']->requested_amount;
 
@@ -319,7 +319,7 @@ trait Ebilling
         ]);
     }
 
-    public function insertCharges($output, $id)
+    public function ebillingInsertCharges($output, $id)
     {
         DB::beginTransaction();
         try {
@@ -352,7 +352,7 @@ trait Ebilling
         }
     }
 
-    public function insertDevice($output, $id)
+    public function ebillingInsertDevice($output, $id)
     {
         $client_ip = request()->ip() ?? false;
         $location = geoip()->getLocation($client_ip);
@@ -384,7 +384,7 @@ trait Ebilling
         }
     }
 
-    public function removeTempData($output)
+    public function ebillingRemoveTempData($output)
     {
         $token = $output['capture']['id'];
         TemporaryData::where("identifier", $token)->delete();

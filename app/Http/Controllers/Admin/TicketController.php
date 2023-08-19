@@ -6,7 +6,7 @@ use App\Constants\NotificationConst;
 use App\Constants\PaymentGatewayConst;
 use App\Http\Controllers\Controller;
 use App\Http\Helpers\Response;
-use App\Models\Admin\Ticket;
+use App\Models\Ticket;
 use App\Models\Transaction;
 use App\Models\UserNotification;
 use App\Models\UserWallet;

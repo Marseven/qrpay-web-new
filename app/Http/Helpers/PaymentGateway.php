@@ -35,6 +35,8 @@ class PaymentGateway
 
     public static function init(array $data)
     {
+        dd($data);
+        die;
         return new PaymentGateway($data);
     }
 

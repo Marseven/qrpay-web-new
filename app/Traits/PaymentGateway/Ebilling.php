@@ -13,7 +13,6 @@ use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\DB;
-use Srmklive\PayPal\Services\PayPal as PayPalClient;
 use Illuminate\Support\Str;
 use Jenssegers\Agent\Agent;
 
@@ -162,7 +161,7 @@ trait Ebilling
         ];
     }
 
-    public function paypalPlainText($string)
+    public function ebillingPlainText($string)
     {
         $string = Str::lower($string);
         return preg_replace("/[^A-Za-z0-9]/", "", $string);

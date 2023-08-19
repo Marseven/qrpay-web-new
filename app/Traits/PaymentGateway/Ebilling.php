@@ -84,16 +84,10 @@ trait Ebilling
             // Get unique transaction id
             $bill_id = $response['e_bill']['bill_id'];
             $this->ebillingJunkInsert($response);
+            $url = $post_url . "/?invoice=$bill_id";
 
             // Redirect to E-Billing portal
-            echo "<form action='" . env('POST_URL') . "' method='post' name='frm'>";
-            echo "<input type='hidden' name='invoice_number' value='" . $bill_id . "'>";
-            echo "<input type='hidden' name='eb_callbackurl' value='" . $eb_callbackurl . "'>";
-            echo "</form>";
-            echo "<script language='JavaScript'>";
-            echo "document.frm.submit();";
-            echo "</script>";
-            die;
+            return redirect()->away($url);
         }
     }
 
@@ -102,12 +96,56 @@ trait Ebilling
         if (!$output) $output = $this->output;
         $credentials = $this->getEbillingCredentials($output);
 
+        $eb_name = Auth::user()->firstname;
+        $eb_amount = $output['amount']->total_amount;
+        $eb_shortdescription = 'Recharge de mon portefeuille Cnou.';
+        $eb_reference = "hhjlkjjl";
+        $eb_email = Auth::user()->email;
+        $eb_msisdn = Auth::user()->phone ?? '074808000';
+        $eb_callbackurl = url('/callback/ebilling/');
+        $expiry_period = 60; // 60 minutes timeout
 
+
+        // =============================================================
+        // ============== E-Billing server invocation ==================
+        // =============================================================
+
+        $global_array =
+            [
+                'payer_email' => $eb_email,
+                'payer_msisdn' => $eb_msisdn,
+                'amount' => $eb_amount,
+                'short_description' => $eb_shortdescription,
+                'external_reference' => $eb_reference,
+                'payer_name' => $eb_name,
+                'expiry_period' => $expiry_period
+            ];
+
+        if ($credentials->mode == "sandbox") {
+            $server_url =  env('SERVER_URL_LAB');
+            $post_url = env('POST_URL_LAB');
+        } else {
+            $server_url =  env('SERVER_URL');
+            $post_url = env('POST_URL');
+        }
+
+        $content = json_encode($global_array);
+        $curl = curl_init(env('SERVER_URL'));
+        curl_setopt($curl, CURLOPT_USERPWD, $credentials->username . ":" . $credentials->sharedkey);
+        curl_setopt($curl, CURLOPT_HEADER, false);
+        curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($curl, CURLOPT_HTTPHEADER, array("Content-type: application/json"));
+        curl_setopt($curl, CURLOPT_POST, true);
+        curl_setopt($curl, CURLOPT_POSTFIELDS, $content);
+        $json_response = curl_exec($curl);
+
+        // Get status code
+        $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
         if (isset($response['id']) && $response['id'] != "" && isset($response['status']) && $response['status'] == "CREATED" && isset($response['links']) && is_array($response['links'])) {
             foreach ($response['links'] as $item) {
                 if ($item['rel'] == "approve") {
-                    $this->paypalJunkInsert($response);
+                    $this->ebillingJunkInsert($response);
                     return $response;
                     break;
                 }

@@ -3,7 +3,7 @@
         <tr>
 
             <th>Ticket Name</th>
-            <th></th>
+            <th>Ticket Price</th>
             <th>Created Time</th>
             <th></th>
             <th>status</th>
@@ -17,7 +17,7 @@
             <tr data-item="{{ $item->editData }}">
 
                 <td>{{ $item->label }}</td>
-                <td></td>
+                <td>{{ get_amount($item->price) }} {{ get_default_currency_symbol() }}</td>
                 <td>{{ $item->created_at->format('d-m-y h:i:s A') }}</td>
                 <td></td>
 

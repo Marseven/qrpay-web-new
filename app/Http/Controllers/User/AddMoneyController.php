@@ -24,88 +24,95 @@ use KingFlamez\Rave\Facades\Rave as Flutterwave;
 
 class AddMoneyController extends Controller
 {
-    use Stripe,Manual,FlutterwaveTrait;
+    use Stripe, Manual, FlutterwaveTrait;
 
 
-    public function index() {
+    public function index()
+    {
 
         $page_title = "Add Money";
         $user_wallets = UserWallet::auth()->get();
-        $user_currencies = Currency::whereIn('id',$user_wallets->pluck('id')->toArray())->get();
+        $user_currencies = Currency::whereIn('id', $user_wallets->pluck('id')->toArray())->get();
 
         $payment_gateways_currencies = PaymentGatewayCurrency::whereHas('gateway', function ($gateway) {
             $gateway->where('slug', PaymentGatewayConst::add_money_slug());
             $gateway->where('status', 1);
         })->get();
         $transactions = Transaction::auth()->addMoney()->latest()->take(10)->get();
-        return view('user.sections.add-money.index',compact("page_title","transactions","payment_gateways_currencies"));
+        return view('user.sections.add-money.index', compact("page_title", "transactions", "payment_gateways_currencies"));
     }
 
 
 
-    public function submit(Request $request) {
+    public function submit(Request $request)
+    {
         $basic_setting = BasicSettings::first();
         $user = auth()->user();
-        if($basic_setting->kyc_verification){
-            if( $user->kyc_verified == 0){
+        if ($basic_setting->kyc_verification) {
+            if ($user->kyc_verified == 0) {
                 return redirect()->route('user.profile.index')->with(['error' => ['Please submit kyc information']]);
-            }elseif($user->kyc_verified == 2){
+            } elseif ($user->kyc_verified == 2) {
                 return redirect()->route('user.profile.index')->with(['error' => ['Please wait before admin approved your kyc information']]);
-            }elseif($user->kyc_verified == 3){
+            } elseif ($user->kyc_verified == 3) {
                 return redirect()->route('user.profile.index')->with(['error' => ['Admin rejected your kyc information, Please re-submit again']]);
             }
         }
-        try{
+        try {
             $instance = PaymentGatewayHelper::init($request->all())->gateway()->render();
-        }catch(Exception $e) {
+            dd($instance);
+        } catch (Exception $e) {
             return back()->with(['error' => [$e->getMessage()]]);
         }
         return $instance;
     }
 
-    public function success(Request $request, $gateway){
+    public function success(Request $request, $gateway)
+    {
         $requestData = $request->all();
         $token = $requestData['token'] ?? "";
-        $checkTempData = TemporaryData::where("type",$gateway)->where("identifier",$token)->first();
-        if(!$checkTempData) return redirect()->route('user.add.money.index')->with(['error' => ['Transaction faild. Record didn\'t saved properly. Please try again.']]);
+        $checkTempData = TemporaryData::where("type", $gateway)->where("identifier", $token)->first();
+        if (!$checkTempData) return redirect()->route('user.add.money.index')->with(['error' => ['Transaction faild. Record didn\'t saved properly. Please try again.']]);
         $checkTempData = $checkTempData->toArray();
 
-        try{
+        try {
             PaymentGatewayHelper::init($checkTempData)->type(PaymentGatewayConst::TYPEADDMONEY)->responseReceive();
-        }catch(Exception $e) {
+        } catch (Exception $e) {
 
             return back()->with(['error' => [$e->getMessage()]]);
         }
         return redirect()->route("user.add.money.index")->with(['success' => ['Successfully added money']]);
     }
 
-    public function cancel(Request $request, $gateway) {
+    public function cancel(Request $request, $gateway)
+    {
         $token = session()->get('identifier');
-        if( $token){
-            TemporaryData::where("identifier",$token)->delete();
+        if ($token) {
+            TemporaryData::where("identifier", $token)->delete();
         }
 
         return redirect()->route('user.add.money.index');
     }
 
-    public function payment($gateway){
+    public function payment($gateway)
+    {
         $page_title = "Stripe Payment";
         $tempData = Session::get('identifier');
-        $hasData = TemporaryData::where('identifier', $tempData)->where('type',$gateway)->first();
-        if(!$hasData){
+        $hasData = TemporaryData::where('identifier', $tempData)->where('type', $gateway)->first();
+        if (!$hasData) {
             return redirect()->route('user.add.money.index');
         }
-        return view('user.sections.add-money.automatic.'.$gateway,compact("page_title","hasData"));
+        return view('user.sections.add-money.automatic.' . $gateway, compact("page_title", "hasData"));
     }
-    public function manualPayment(){
+    public function manualPayment()
+    {
         $tempData = Session::get('identifier');
         $hasData = TemporaryData::where('identifier', $tempData)->first();
-        $gateway = PaymentGateway::manual()->where('slug',PaymentGatewayConst::add_money_slug())->where('id',$hasData->data->gateway)->first();
-        $page_title = "Manual Payment".' ( '.$gateway->name.' )';
-        if(!$hasData){
+        $gateway = PaymentGateway::manual()->where('slug', PaymentGatewayConst::add_money_slug())->where('id', $hasData->data->gateway)->first();
+        $page_title = "Manual Payment" . ' ( ' . $gateway->name . ' )';
+        if (!$hasData) {
             return redirect()->route('user.add.money.index');
         }
-        return view('user.sections.add-money.manual.payment_confirmation',compact("page_title","hasData",'gateway'));
+        return view('user.sections.add-money.manual.payment_confirmation', compact("page_title", "hasData", 'gateway'));
     }
     public function flutterwaveCallback()
     {
@@ -122,27 +129,22 @@ class AddMoneyController extends Controller
             $requestData = request()->tx_ref;
             $token = $requestData;
 
-            $checkTempData = TemporaryData::where("type",'flutterwave')->where("identifier",$token)->first();
+            $checkTempData = TemporaryData::where("type", 'flutterwave')->where("identifier", $token)->first();
 
-            if(!$checkTempData) return redirect()->route('user.add.money.index')->with(['error' => ['Transaction faild. Record didn\'t saved properly. Please try again.']]);
+            if (!$checkTempData) return redirect()->route('user.add.money.index')->with(['error' => ['Transaction faild. Record didn\'t saved properly. Please try again.']]);
 
             $checkTempData = $checkTempData->toArray();
 
-            try{
+            try {
                 PaymentGatewayHelper::init($checkTempData)->type(PaymentGatewayConst::TYPEADDMONEY)->responseReceive('flutterWave');
-            }catch(Exception $e) {
+            } catch (Exception $e) {
                 return back()->with(['error' => [$e->getMessage()]]);
             }
             return redirect()->route("user.add.money.index")->with(['success' => ['Successfully added money']]);
-
-        }
-        elseif ($status ==  'cancelled'){
+        } elseif ($status ==  'cancelled') {
             return redirect()->route('user.add.money.index')->with(['error' => ['Add money cancelled']]);
-        }
-        else{
+        } else {
             return redirect()->route('user.add.money.index')->with(['error' => ['Transaction failed']]);
         }
     }
-
-
 }

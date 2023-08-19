@@ -18,7 +18,7 @@
                             @include('admin.components.form.input', [
                                 'label' => 'Ticket Name*',
                                 'name' => 'label',
-                                'value' => old('name'),
+                                'value' => old('label'),
                             ])
                         </div>
 

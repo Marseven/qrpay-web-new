@@ -75,7 +75,7 @@
             var oldData = JSON.parse($(this).parents("tr").attr("data-item"));
             var actionRoute = "{{ setRoute('admin.ticket.pay.ticket.delete') }}";
             var target = oldData.id;
-            var message = `Are you sure to delete <strong>${oldData.name}</strong> Category?`;
+            var message = `Are you sure to delete <strong>${oldData.label}</strong> Ticket Type?`;
             openDeleteModal(actionRoute, target, message);
         });
 

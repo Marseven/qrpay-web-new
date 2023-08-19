@@ -77,8 +77,7 @@ class PaymentGateway
 
         // limit validation
         $this->limitValidation($this->output);
-        dd($gateway_currency->gateway);
-        die;
+
         return $this;
     }
 
@@ -200,6 +199,7 @@ class PaymentGateway
     public function render()
     {
         $output = $this->output;
+        dd($output);
 
         if (!is_array($output)) throw new Exception("Render Faild! Please call with valid gateway/credentials");
 

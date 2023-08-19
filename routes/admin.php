@@ -158,7 +158,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
     });
     // Ticket Pay Logs
     Route::controller(TicketController::class)->prefix('ticket-pay')->name('ticket.pay.')->group(function () {
-        //manage ticket category
+        //manage ticket type
         Route::get('ticket/index', 'ticketPayList')->name('ticket.index');
         Route::post('ticket/store', 'storeTicket')->name('ticket.store');
         Route::put('ticket/status/update', 'ticketStatusUpdate')->name('ticket.status.update');

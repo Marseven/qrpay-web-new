@@ -74,37 +74,27 @@ trait Ebilling
         // Check status <> 200
         if ($status < 200  || $status > 299) {
             //die("Error: call to URL failed with status $status, response $json_response, curl_error " . curl_error($curl) . ", curl_errno " . curl_errno($curl));
-            return back()->with('error', "Une erreur $status s'est produite lors du paiement, Veuillez réessayer !")->withInput();
+            throw new Exception(curl_error($curl));
+        } else {
+            curl_close($curl);
+
+            // Get response in JSON format
+            $response = json_decode($json_response, true);
+
+            // Get unique transaction id
+            $bill_id = $response['e_bill']['bill_id'];
+            $this->ebillingJunkInsert($response);
+
+            // Redirect to E-Billing portal
+            echo "<form action='" . env('POST_URL') . "' method='post' name='frm'>";
+            echo "<input type='hidden' name='invoice_number' value='" . $bill_id . "'>";
+            echo "<input type='hidden' name='eb_callbackurl' value='" . $eb_callbackurl . "'>";
+            echo "</form>";
+            echo "<script language='JavaScript'>";
+            echo "document.frm.submit();";
+            echo "</script>";
+            exit();
         }
-
-        curl_close($curl);
-
-        // Get response in JSON format
-        $response = json_decode($json_response, true);
-
-        // Get unique transaction id
-        $bill_id = $response['e_bill']['bill_id'];
-        $this->ebillingJunkInsert($response);
-
-        // Redirect to E-Billing portal
-        echo "<form action='" . env('POST_URL') . "' method='post' name='frm'>";
-        echo "<input type='hidden' name='invoice_number' value='" . $bill_id . "'>";
-        echo "<input type='hidden' name='eb_callbackurl' value='" . $eb_callbackurl . "'>";
-        echo "</form>";
-        echo "<script language='JavaScript'>";
-        echo "document.frm.submit();";
-        echo "</script>";
-
-
-
-        break;
-
-
-        if (isset($response['error']) && is_array($response['error'])) {
-            throw new Exception($response['error']['message']);
-        }
-
-        throw new Exception("Something went worng! Please try again.");
     }
 
     public function ebillingInitApi($output = null)

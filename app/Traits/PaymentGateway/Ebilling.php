@@ -59,7 +59,9 @@ trait Ebilling
         }
 
         $content = json_encode($global_array);
-        $curl = curl_init(env('SERVER_URL'));
+
+        dd($content);
+        $curl = curl_init($server_url);
         curl_setopt($curl, CURLOPT_USERPWD, $credentials->username . ":" . $credentials->sharedkey);
         curl_setopt($curl, CURLOPT_HEADER, false);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);

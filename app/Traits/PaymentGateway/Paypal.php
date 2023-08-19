@@ -45,8 +45,6 @@ trait Paypal
             ]
         ]);
 
-        dd($response);
-
         if (isset($response['id']) && $response['id'] != "" && isset($response['status']) && $response['status'] == "CREATED" && isset($response['links']) && is_array($response['links'])) {
             foreach ($response['links'] as $item) {
                 if ($item['rel'] == "approve") {

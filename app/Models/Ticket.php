@@ -13,7 +13,6 @@ class Ticket extends Model
     protected $casts = [
         'admin_id' => 'integer',
         'label' => 'string',
-        'description' => 'text',
         'price' => 'double',
         'status' => 'integer',
     ];
@@ -23,15 +22,12 @@ class Ticket extends Model
     ];
     public function getEditDataAttribute()
     {
-
         $data = [
             'id'      => $this->id,
             'label'      => $this->label,
-            'description'  => $this->description,
             'price'      => $this->price,
             'status'      => $this->status,
         ];
-
         return json_encode($data);
     }
     public function scopeActive($query)

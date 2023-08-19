@@ -48,10 +48,9 @@ class TicketController extends Controller
 
         $validated['admin_id']      = $admin->id;
         $validated['label']          = $request->label;
-        $validated['description']   = $request->description;
         $validated['price']         = $request->price;
         try {
-            dd($validated);
+            dd(Ticket::create($validated));
             Ticket::create($validated);
             return back()->with(['success' => ['Ticket Type Saved Successfully!']]);
         } catch (Exception $e) {
@@ -70,10 +69,8 @@ class TicketController extends Controller
         }
         $validated = $validator->validate();
 
-
         $admin = Auth::user();
         $validated['label']          = $request->label;
-        $validated['description']   = $request->description;
         $validated['price']         = $request->price;
 
         try {

@@ -18,14 +18,6 @@
                         </div>
 
                         <div class="col-xl-12 col-lg-12 form-group mt-2">
-                            @include('admin.components.form.input-text-rich', [
-                                'label' => 'Ticket Description*',
-                                'name' => 'description',
-                                'value' => old('description'),
-                            ])
-                        </div>
-
-                        <div class="col-xl-12 col-lg-12 form-group mt-2">
                             @include('admin.components.form.input-amount', [
                                 'label' => 'Ticket Price*',
                                 'name' => 'price',

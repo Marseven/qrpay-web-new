@@ -29,7 +29,7 @@
                             </div>
 
                             <div class="dashboard-icon">
-                                <i class="fas fa-money"></i>
+                                <i class="fas fa-dollar-sign"></i>
                             </div>
                         </div>
                     </div>

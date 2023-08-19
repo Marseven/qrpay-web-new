@@ -50,7 +50,6 @@ class TicketController extends Controller
         $validated['label']          = $request->label;
         $validated['price']         = $request->price;
         try {
-            dd(Ticket::create($validated));
             Ticket::create($validated);
             return back()->with(['success' => ['Ticket Type Saved Successfully!']]);
         } catch (Exception $e) {

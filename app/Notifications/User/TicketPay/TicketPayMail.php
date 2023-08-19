@@ -8,7 +8,7 @@ use Illuminate\Notifications\Messages\MailMessage;
 use Illuminate\Notifications\Notification;
 use Illuminate\Support\Carbon;
 
-class BillPayMail extends Notification
+class TicketPayMail extends Notification
 {
     use Queueable;
 
@@ -20,7 +20,7 @@ class BillPayMail extends Notification
      *
      * @return void
      */
-    public function __construct($user,$data)
+    public function __construct($user, $data)
     {
         $this->user = $user;
         $this->data = $data;
@@ -54,16 +54,16 @@ class BillPayMail extends Notification
         $dateTime = $date->format('Y-m-d h:i:s A');
 
         return (new MailMessage)
-                    ->greeting("Hello ".$user->fullname." !")
-                    ->subject("Bill Pay For ". $data->bill_type.' ('.$data->bill_number.' )')
-                    ->line("Your bill pay request send to admin successfully  for ".$data->bill_type." , details of bill pay:")
-                    ->line("Transaction Id: " .$trx_id)
-                    ->line("Request Amount: " . getAmount($data->request_amount,4).' '.get_default_currency_code())
-                    ->line("Fees & Charges: " . getAmount($data->charges,4).' '.get_default_currency_code())
-                    ->line("Total Payable Amount: " . get_amount($data->payable,get_default_currency_code(),'4'))
-                    ->line("Status: ". $data->status)
-                    ->line("Date And Time: " .$dateTime)
-                    ->line('Thank you for using our application!');
+            ->greeting("Hello " . $user->fullname . " !")
+            ->subject("Ticket Pay For " . $data->bill_type . ' (' . $data->bill_number . ' )')
+            ->line("Your ticket pay request send to admin successfully  for " . $data->bill_type . " , details of bill pay:")
+            ->line("Transaction Id: " . $trx_id)
+            ->line("Request Amount: " . getAmount($data->request_amount, 4) . ' ' . get_default_currency_code())
+            ->line("Fees & Charges: " . getAmount($data->charges, 4) . ' ' . get_default_currency_code())
+            ->line("Total Payable Amount: " . get_amount($data->payable, get_default_currency_code(), '4'))
+            ->line("Status: " . $data->status)
+            ->line("Date And Time: " . $dateTime)
+            ->line('Thank you for using our application!');
     }
 
     /**

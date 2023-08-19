@@ -17,7 +17,6 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger("admin_id")->nullable();
             $table->string("label", 120)->unique();
-            $table->text("description")->nullable();
             $table->double("price");
             $table->tinyInteger("status")->default(0)->comment("0: Unactive, 1: Active");
             $table->timestamps();

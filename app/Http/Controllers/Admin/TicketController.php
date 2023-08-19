@@ -61,7 +61,7 @@ class TicketController extends Controller
         $target = $request->target;
         $ticket = Ticket::where('id', $target)->first();
         $validator = Validator::make($request->all(), [
-            'label'      => 'required|string|max:200',
+            'label' => 'required|string|max:200',
         ]);
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput()->with('modal', 'edit-ticket');
@@ -69,8 +69,8 @@ class TicketController extends Controller
         $validated = $validator->validate();
 
         $admin = Auth::user();
-        $validated['label']          = $request->label;
-        $validated['price']         = $request->price;
+        $validated['label']  = $request->label;
+        $validated['price']  = $request->price;
 
         try {
             $ticket->fill($validated)->save();

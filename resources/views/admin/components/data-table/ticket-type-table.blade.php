@@ -13,10 +13,10 @@
     </thead>
     <tbody>
 
-        @forelse ($allCategory ?? [] as $item)
+        @forelse ($allTicket ?? [] as $item)
             <tr data-item="{{ $item->editData }}">
 
-                <td>{{ $item->name }}</td>
+                <td>{{ $item->label }}</td>
                 <td></td>
                 <td>{{ $item->created_at->format('d-m-y h:i:s A') }}</td>
                 <td></td>

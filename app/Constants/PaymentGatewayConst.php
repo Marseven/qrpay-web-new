@@ -37,6 +37,7 @@ class PaymentGatewayConst
     const STATUSREJECTED    = 4;
 
     const PAYPAL = 'paypal';
+    const EBILLING = 'ebilling';
     const STRIPE = 'stripe';
     const MANUA_GATEWAY = 'manual';
     const FLUTTER_WAVE = 'flutterwave';

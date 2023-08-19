@@ -74,12 +74,12 @@
                             <span class="menu-title">{{ __('Ticket Pay') }}</span>
                         </a>
                     </li>
-                    <li class="sidebar-menu-item">
+                    {{-- <li class="sidebar-menu-item">
                         <a href="{{ setRoute('user.mobile.topup.index') }}">
                             <i class="menu-icon fas fa-mobile"></i>
                             <span class="menu-title">{{ __('Mobile TopUp') }}</span>
                         </a>
-                    </li>
+                    </li> --}}
                     {{-- <li class="sidebar-menu-item">
                         <a href="my-giftcard.html">
                             <i class="menu-icon fas fa-gift"></i>

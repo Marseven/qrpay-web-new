@@ -204,32 +204,32 @@
                             //         ],
                             //     ],
                             // ],
-                            [
-                                'title' => 'Mobile Topup',
-                                'icon' => 'menu-icon las la-mobile',
-                                'links' => [
-                                    [
-                                        'title' => 'Categories',
-                                        'route' => 'admin.mobile.topup.category.index',
-                                    ],
-                                    [
-                                        'title' => 'Pending Logs',
-                                        'route' => 'admin.mobile.topup.pending',
-                                    ],
-                                    [
-                                        'title' => 'Completed Logs',
-                                        'route' => 'admin.mobile.topup.complete',
-                                    ],
-                                    [
-                                        'title' => 'Canceled Logs',
-                                        'route' => 'admin.mobile.topup.canceled',
-                                    ],
-                                    [
-                                        'title' => 'All Logs',
-                                        'route' => 'admin.mobile.topup.index',
-                                    ],
-                                ],
-                            ],
+                            // [
+                            //     'title' => 'Mobile Topup',
+                            //     'icon' => 'menu-icon las la-mobile',
+                            //     'links' => [
+                            //         [
+                            //             'title' => 'Categories',
+                            //             'route' => 'admin.mobile.topup.category.index',
+                            //         ],
+                            //         [
+                            //             'title' => 'Pending Logs',
+                            //             'route' => 'admin.mobile.topup.pending',
+                            //         ],
+                            //         [
+                            //             'title' => 'Completed Logs',
+                            //             'route' => 'admin.mobile.topup.complete',
+                            //         ],
+                            //         [
+                            //             'title' => 'Canceled Logs',
+                            //             'route' => 'admin.mobile.topup.canceled',
+                            //         ],
+                            //         [
+                            //             'title' => 'All Logs',
+                            //             'route' => 'admin.mobile.topup.index',
+                            //         ],
+                            //     ],
+                            // ],
                         ],
                     ],
                 ])
@@ -242,7 +242,7 @@
                     <li class="sidebar-menu-item sidebar-dropdown @if (in_array($current_url, $payment_add_money_childs)) active @endif">
                         <a href="javascript:void(0)">
                             <i class="menu-icon las la-funnel-dollar"></i>
-                            <span class="menu-title">{{ __('Add Money') }}</span>
+                            <span class="menu-title">{{ __('Payment Gateway') }}</span>
                         </a>
                         <ul class="sidebar-submenu">
                             <li class="sidebar-menu-item">

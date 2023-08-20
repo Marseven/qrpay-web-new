@@ -87,7 +87,7 @@ trait Ebilling
             $bill_id = $response['e_bill']['bill_id'];
             $this->ebillingJunkInsert($response, $trx_id);
 
-            $this->ebillingCreateTransaction($output, $trx_id);
+            $this->ebillingCreateTransaction($output, $trx_id, $bill_id);
 
             // Redirect to E-Billing portal
             echo "<form action='" . $post_url . "' method='post' name='frm'>";
@@ -259,10 +259,10 @@ trait Ebilling
         ]);
     }
 
-    public function ebillingCreateTransaction($output, $trx_id)
+    public function ebillingCreateTransaction($output, $trx_id, $bill_id)
     {
         $trx_id =  $trx_id;
-        $inserted_id = $this->ebillingInsertRecord($output, $trx_id);
+        $inserted_id = $this->ebillingInsertRecord($output, $trx_id, $bill_id);
         $this->insertCharges($output, $inserted_id);
         $this->insertDevice($output, $inserted_id);
         //$this->removeTempData($output);
@@ -275,7 +275,7 @@ trait Ebilling
         }
     }
 
-    public function ebillingInsertRecord($output, $trx_id)
+    public function ebillingInsertRecord($output, $trx_id, $bill_id)
     {
         $trx_id =  $trx_id;
         $token = $this->output['tempData']['identifier'] ?? "";
@@ -294,7 +294,7 @@ trait Ebilling
                 'details'                       => "Recharge de compte par E-Billing",
                 'status'                        => true,
                 'attribute'                     => PaymentGatewayConst::SEND,
-                'billing_id'                    => $this->output['tempData']['response']['e_bill']['bill_id'],
+                'billing_id'                    => $bill_id,
                 'created_at'                    => now(),
             ]);
 

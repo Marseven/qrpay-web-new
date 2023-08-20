@@ -212,7 +212,7 @@ class PaymentGateway
         }
 
         $distributeMethod = $this->output['distribute'];
-        dd($this->$distributeMethod($output));
+        //dd($this->$distributeMethod($output));
         return $this->$distributeMethod($output) ?? throw new Exception("Something went worng! Please try again.");
     }
 

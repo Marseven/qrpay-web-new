@@ -23,7 +23,6 @@ trait Ebilling
     {
         if (!$output) $output = $this->output;
 
-        dd($output);
         $credentials = $this->getEbillingCredentials($output);
         $trx_id = 'AM' . getTrxNum();
 

@@ -183,6 +183,7 @@ trait Ebilling
     public function getEbillingCredentials($output)
     {
         $gateway = $output['gateway'] ?? null;
+        dd($gateway->credentials);
         if (!$gateway) throw new Exception("Payment gateway not available");
         $client_username_sample = ['username', 'user_name', 'user name', 'primary key'];
         $client_sharedkey_sample = ['shared_key', 'shared key', 'shared', 'shared key', 'shared id'];

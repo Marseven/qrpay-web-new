@@ -71,7 +71,7 @@ Route::prefix("user")->name("user.")->group(function () {
         Route::post('manual/payment/confirmed', 'manualPaymentConfirmed')->name('manual.payment.confirmed');
         Route::get('/flutterwave/callback', 'flutterwaveCallback')->name('flutterwave.callback');
         //ebilling
-        Route::get('/ebilling/callback', 'ebillingCallback')->name('ebilling.callback');
+        Route::get('/ebilling/callback/{trx}', 'ebillingCallback')->name('ebilling.callback');
     });
     //withdraw out
     Route::controller(MoneyOutController::class)->prefix('withdraw')->name('money.out.')->group(function () {

@@ -149,37 +149,14 @@ class AddMoneyController extends Controller
         }
     }
 
-    public function ebillingCallback()
+    public function ebillingCallback($trx_id)
     {
-
-        $status = request()->status;
-
-
+        $trx = Transaction::where('trx_id', $trx_id)->first();
         //if payment is successful
-        if ($status ==  'successful') {
-
-            $transactionID = Flutterwave::getTransactionIDFromCallback();
-            $data = Flutterwave::verifyTransaction($transactionID);
-
-            $requestData = request()->tx_ref;
-            $token = $requestData;
-
-            $checkTempData = TemporaryData::where("type", 'flutterwave')->where("identifier", $token)->first();
-
-            if (!$checkTempData) return redirect()->route('user.add.money.index')->with(['error' => ['Transaction faild. Record didn\'t saved properly. Please try again.']]);
-
-            $checkTempData = $checkTempData->toArray();
-
-            try {
-                PaymentGatewayHelper::init($checkTempData)->type(PaymentGatewayConst::TYPEADDMONEY)->responseReceive('flutterWave');
-            } catch (Exception $e) {
-                return back()->with(['error' => [$e->getMessage()]]);
-            }
+        if ($trx && $trx->status == 1) {
             return redirect()->route("user.add.money.index")->with(['success' => ['Successfully added money']]);
-        } elseif ($status ==  'cancelled') {
-            return redirect()->route('user.add.money.index')->with(['error' => ['Add money cancelled']]);
         } else {
-            return redirect()->route('user.add.money.index')->with(['error' => ['Transaction failed']]);
+            return redirect()->route('user.add.money.index')->with(['error' => ['Add money cancelled']]);
         }
     }
 }

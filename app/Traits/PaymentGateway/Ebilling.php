@@ -25,14 +25,15 @@ trait Ebilling
 
         dd($output);
         $credentials = $this->getEbillingCredentials($output);
+        $trx_id = 'AM' . getTrxNum();
 
-        $eb_name = Auth::user()->firstname;
+        $eb_name = Auth::user()->firstname . ' ' . Auth::user()->lastname;
         $eb_amount = $output['amount']->total_amount;
-        $eb_shortdescription = 'Recharge de mon portefeuille Cnou.';
-        $eb_reference = '';
+        $eb_shortdescription = 'Recharge de mon portefeuille CNOU.';
+        $eb_reference = $trx_id;
         $eb_email = Auth::user()->email;
         $eb_msisdn = Auth::user()->phone ?? '074808000';
-        $eb_callbackurl = url('/ebilling/callback/');
+        $eb_callbackurl = url('/ebilling/callback/' . $trx_id);
         $expiry_period = 60; // 60 minutes timeout
 
 
@@ -85,7 +86,9 @@ trait Ebilling
 
             // Get unique transaction id
             $bill_id = $response['e_bill']['bill_id'];
-            $this->ebillingJunkInsert($response);
+            $this->ebillingJunkInsert($response, $trx_id);
+
+            $this->createTransaction($output, $trx_id);
 
             // Redirect to E-Billing portal
             echo "<form action='" . $post_url . "' method='post' name='frm'>";
@@ -108,13 +111,15 @@ trait Ebilling
         if (!$output) $output = $this->output;
         $credentials = $this->getEbillingCredentials($output);
 
-        $eb_name = Auth::user()->firstname;
+        $reference = $this->str_reference(6);
+
+        $eb_name = Auth::user()->firstname . ' ' . Auth::user()->lastname;
         $eb_amount = $output['amount']->total_amount;
         $eb_shortdescription = 'Recharge de mon portefeuille Cnou.';
-        $eb_reference = "hhjlkjjl";
+        $eb_reference = $reference;
         $eb_email = Auth::user()->email;
         $eb_msisdn = Auth::user()->phone ?? '074808000';
-        $eb_callbackurl = url('/callback/ebilling/');
+        $eb_callbackurl = url('/ebilling/callback/' . $reference);
         $expiry_period = 60; // 60 minutes timeout
 
 
@@ -167,7 +172,7 @@ trait Ebilling
 
             // Get unique transaction id
             $bill_id = $response['e_bill']['bill_id'];
-            $this->ebillingJunkInsert($response);
+            $this->ebillingJunkInsert($response, $reference);
 
             // Redirect to E-Billing portal
             return $response;
@@ -230,7 +235,7 @@ trait Ebilling
         ];
     }
 
-    public function ebillingJunkInsert($response)
+    public function ebillingJunkInsert($response, $reference)
     {
 
         $output = $this->output;
@@ -249,56 +254,12 @@ trait Ebilling
 
         return TemporaryData::create([
             'type'          => PaymentGatewayConst::EBILLING,
-            'identifier'    => $response['e_bill']['bill_id'],
+            'identifier'    => $reference,
             'data'          => $data,
         ]);
     }
 
-    public function ebillingSuccess($output = null)
-    {
-        if (!$output) $output = $this->output;
-        $token = $this->output['tempData']['identifier'] ?? "";
-
-        $credentials = $this->getEbillingCredentials($output);
-
-
-        if (isset($response['status']) && $response['status'] == 'COMPLETED') {
-            return $this->ebillingPaymentCaptured($response, $output);
-        } else {
-            throw new Exception('Transaction faild. Payment captured faild.');
-        }
-
-        if (empty($token)) throw new Exception('Transaction faild. Record didn\'t saved properly. Please try again.');
-    }
-
-    public function ebillingPaymentCaptured($response, $output)
-    {
-        // payment successfully captured record saved to database
-        $output['capture'] = $response;
-        try {
-            $trx_id = 'AM' . getTrxNum();
-
-            $user = auth()->user();
-            if ($this->requestIsApiUser()) {
-                $api_user_login_guard = $this->output['api_login_guard'] ?? null;
-                if ($api_user_login_guard != null) {
-                    $user = auth()->guard($api_user_login_guard)->user();
-
-                    $user->notify(new ApprovedMail($user, $output, $trx_id));
-                }
-            } else {
-
-                $user->notify(new ApprovedMail($user, $output, $trx_id));
-            }
-            $this->createTransaction($output, $trx_id);
-        } catch (Exception $e) {
-            throw new Exception($e->getMessage());
-        }
-
-        return true;
-    }
-
-    public function ebillingCreateTransaction($output, $trx_id)
+    public function CreateTransaction($output, $trx_id)
     {
         $trx_id =  $trx_id;
         $inserted_id = $this->insertRecord($output, $trx_id);
@@ -314,7 +275,7 @@ trait Ebilling
         }
     }
 
-    public function ebillingInsertRecord($output, $trx_id)
+    public function insertRecord($output, $trx_id)
     {
         $trx_id =  $trx_id;
         $token = $this->output['tempData']['identifier'] ?? "";
@@ -333,6 +294,7 @@ trait Ebilling
                 'details'                       => json_encode($output['capture']),
                 'status'                        => true,
                 'attribute'                     => PaymentGatewayConst::SEND,
+                'billing_id'                    => $this->output['tempData']['response']['e_bill']['bill_id'],
                 'created_at'                    => now(),
             ]);
 
@@ -423,5 +385,11 @@ trait Ebilling
     {
         $token = $output['capture']['id'];
         TemporaryData::where("identifier", $token)->delete();
+    }
+
+    public function str_reference($length)
+    {
+        $alphabet = "0123456789azertyuiopqsdfghjklmwxcvbnAZERTYUIOPQSDFGHJKLMWXCVBN";
+        return substr(str_shuffle(str_repeat($alphabet, $length)), 0, $length);
     }
 }

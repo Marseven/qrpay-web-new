@@ -23,15 +23,16 @@ trait Ebilling
     {
         if (!$output) $output = $this->output;
 
+        dd($output);
         $credentials = $this->getEbillingCredentials($output);
 
         $eb_name = Auth::user()->firstname;
         $eb_amount = $output['amount']->total_amount;
         $eb_shortdescription = 'Recharge de mon portefeuille Cnou.';
-        $eb_reference = "hhjlkjjl";
+        $eb_reference = '';
         $eb_email = Auth::user()->email;
         $eb_msisdn = Auth::user()->phone ?? '074808000';
-        $eb_callbackurl = url('/callback/ebilling/');
+        $eb_callbackurl = url('/ebilling/callback/');
         $expiry_period = 60; // 60 minutes timeout
 
 
@@ -60,7 +61,6 @@ trait Ebilling
 
         $content = json_encode($global_array);
 
-        dd($content);
         $curl = curl_init($server_url);
         curl_setopt($curl, CURLOPT_USERPWD, $credentials->username . ":" . $credentials->sharedkey);
         curl_setopt($curl, CURLOPT_HEADER, false);
@@ -86,10 +86,20 @@ trait Ebilling
             // Get unique transaction id
             $bill_id = $response['e_bill']['bill_id'];
             $this->ebillingJunkInsert($response);
-            $url = $post_url . "/?invoice=$bill_id";
 
             // Redirect to E-Billing portal
-            return redirect()->away($url);
+            echo "<form action='" . $post_url . "' method='post' name='frm'>";
+            echo "<input type='hidden' name='invoice_number' value='" . $bill_id . "'>";
+            echo "<input type='hidden' name='eb_callbackurl' value='" . $eb_callbackurl . "'>";
+            echo "</form>";
+            echo "<script language='JavaScript'>";
+            echo "document.frm.submit();";
+            echo "</script>";
+
+            exit();
+
+            // Redirect to E-Billing portal
+            //return redirect()->away($url);
         }
     }
 

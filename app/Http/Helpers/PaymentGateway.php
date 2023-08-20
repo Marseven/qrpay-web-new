@@ -200,8 +200,6 @@ class PaymentGateway
     {
         $output = $this->output;
 
-        dd($output);
-
         if (!is_array($output)) throw new Exception("Render Faild! Please call with valid gateway/credentials");
 
         $common_keys = ['gateway', 'currency', 'amount', 'distribute'];

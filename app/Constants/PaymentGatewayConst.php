@@ -65,6 +65,7 @@ class PaymentGatewayConst
     {
         $gateway_alias  = [
             self::PAYPAL => "paypalInit",
+            self::EBILLING => "ebillingInit",
             self::STRIPE => "stripeInit",
             self::MANUA_GATEWAY => "manualInit",
             self::FLUTTER_WAVE => 'flutterwaveInit'

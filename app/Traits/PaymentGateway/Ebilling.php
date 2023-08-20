@@ -59,8 +59,6 @@ trait Ebilling
             $post_url = env('POST_URL');
         }
 
-        dd($credentials);
-
         $content = json_encode($global_array);
 
         $curl = curl_init($server_url);
@@ -183,7 +181,7 @@ trait Ebilling
     public function getEbillingCredentials($output)
     {
         $gateway = $output['gateway'] ?? null;
-        //dd($gateway->credentials);
+
         if (!$gateway) throw new Exception("Payment gateway not available");
         $client_username_sample = ['username', 'user_name', 'Username', 'primary key'];
         $client_sharedkey_sample = ['shared_key', 'Shared Key', 'shared', 'shared key', 'shared id'];

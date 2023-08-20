@@ -291,7 +291,7 @@ trait Ebilling
                 'payable'                       => $output['amount']->total_amount,
                 'available_balance'             => $output['wallet']->balance + $output['amount']->requested_amount,
                 'remark'                        => ucwords(remove_speacial_char(PaymentGatewayConst::TYPEADDMONEY, " ")) . " With " . $output['gateway']->name,
-                'details'                       => json_encode($output['capture']),
+                'details'                       => "Recharge de compte par E-Billing",
                 'status'                        => true,
                 'attribute'                     => PaymentGatewayConst::SEND,
                 'billing_id'                    => $this->output['tempData']['response']['e_bill']['bill_id'],
@@ -381,9 +381,8 @@ trait Ebilling
         }
     }
 
-    public function ebillingRemoveTempData($output)
+    public function ebillingRemoveTempData($token)
     {
-        $token = $output['capture']['id'];
         TemporaryData::where("identifier", $token)->delete();
     }
 

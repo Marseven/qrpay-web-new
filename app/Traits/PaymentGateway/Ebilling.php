@@ -265,7 +265,7 @@ trait Ebilling
         $inserted_id = $this->ebillingInsertRecord($output, $trx_id);
         $this->insertCharges($output, $inserted_id);
         $this->insertDevice($output, $inserted_id);
-        $this->removeTempData($output);
+        //$this->removeTempData($output);
         if ($this->requestIsApiUser()) {
             // logout user
             $api_user_login_guard = $this->output['api_login_guard'] ?? null;
@@ -298,7 +298,6 @@ trait Ebilling
                 'created_at'                    => now(),
             ]);
 
-            $this->updateWalletBalance($output);
             DB::commit();
         } catch (Exception $e) {
             DB::rollBack();

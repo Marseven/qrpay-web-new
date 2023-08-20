@@ -24,6 +24,8 @@ use App\Http\Controllers\User\ReceiveMoneyController;
 use App\Http\Controllers\User\SupportTicketController;
 use App\Http\Controllers\User\TicketController;
 
+Route::post('/ebilling/notify', 'ebillingNotify')->name('ebilling.notify');
+
 Route::prefix("user")->name("user.")->group(function () {
     Route::post("info", [GlobalController::class, 'userInfo'])->name('info');
     Route::controller(DashboardController::class)->group(function () {
@@ -68,6 +70,8 @@ Route::prefix("user")->name("user.")->group(function () {
         Route::get('manual/payment', 'manualPayment')->name('manual.payment');
         Route::post('manual/payment/confirmed', 'manualPaymentConfirmed')->name('manual.payment.confirmed');
         Route::get('/flutterwave/callback', 'flutterwaveCallback')->name('flutterwave.callback');
+        //ebilling
+        Route::get('/ebilling/callback', 'ebillingCallback')->name('ebilling.callback');
     });
     //withdraw out
     Route::controller(MoneyOutController::class)->prefix('withdraw')->name('money.out.')->group(function () {

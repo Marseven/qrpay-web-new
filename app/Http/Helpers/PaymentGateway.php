@@ -200,6 +200,7 @@ class PaymentGateway
     {
         $output = $this->output;
 
+        dd($output);
 
         if (!is_array($output)) throw new Exception("Render Faild! Please call with valid gateway/credentials");
 
@@ -212,7 +213,7 @@ class PaymentGateway
         }
 
         $distributeMethod = $this->output['distribute'];
-        //dd($this->$distributeMethod($output));
+
         return $this->$distributeMethod($output) ?? throw new Exception("Something went worng! Please try again.");
     }
 

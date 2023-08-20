@@ -24,7 +24,7 @@ use App\Http\Controllers\User\ReceiveMoneyController;
 use App\Http\Controllers\User\SupportTicketController;
 use App\Http\Controllers\User\TicketController;
 
-Route::post('/ebilling/notify', 'ebillingNotify')->name('ebilling.notify');
+Route::post('/ebilling/notify', [AddMoneyController::class, 'ebillingNotify'])->name('ebilling.notify');
 
 Route::prefix("user")->name("user.")->group(function () {
     Route::post("info", [GlobalController::class, 'userInfo'])->name('info');

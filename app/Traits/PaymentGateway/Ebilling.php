@@ -87,7 +87,7 @@ trait Ebilling
             $bill_id = $response['e_bill']['bill_id'];
             $this->ebillingJunkInsert($response, $trx_id);
 
-            $this->createTransaction($output, $trx_id);
+            $this->ebillingCreateTransaction($output, $trx_id);
 
             // Redirect to E-Billing portal
             echo "<form action='" . $post_url . "' method='post' name='frm'>";
@@ -258,10 +258,10 @@ trait Ebilling
         ]);
     }
 
-    public function CreateTransaction($output, $trx_id)
+    public function ebillingCreateTransaction($output, $trx_id)
     {
         $trx_id =  $trx_id;
-        $inserted_id = $this->insertRecord($output, $trx_id);
+        $inserted_id = $this->ebillingInsertRecord($output, $trx_id);
         $this->insertCharges($output, $inserted_id);
         $this->insertDevice($output, $inserted_id);
         $this->removeTempData($output);
@@ -274,7 +274,7 @@ trait Ebilling
         }
     }
 
-    public function insertRecord($output, $trx_id)
+    public function ebillingInsertRecord($output, $trx_id)
     {
         $trx_id =  $trx_id;
         $token = $this->output['tempData']['identifier'] ?? "";

@@ -98,7 +98,7 @@ trait Ebilling
             echo "document.frm.submit();";
             echo "</script>";
 
-            exit();
+            die;
 
             // Redirect to E-Billing portal
             //return redirect()->away($url);

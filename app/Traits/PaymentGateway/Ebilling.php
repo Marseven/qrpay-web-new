@@ -72,7 +72,7 @@ trait Ebilling
 
         // Get status code
         $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
-
+        dd($json_response);
         // Check status <> 200
         if ($status < 200  || $status > 299) {
             //die("Error: call to URL failed with status $status, response $json_response, curl_error " . curl_error($curl) . ", curl_errno " . curl_errno($curl));

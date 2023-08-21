@@ -292,7 +292,7 @@ trait Ebilling
                 'available_balance'             => $output['wallet']->balance + $output['amount']->requested_amount,
                 'remark'                        => ucwords(remove_speacial_char(PaymentGatewayConst::TYPEADDMONEY, " ")) . " With " . $output['gateway']->name,
                 'details'                       => "Recharge de compte par E-Billing",
-                'status'                        => true,
+                'status'                        => PaymentGatewayConst::STATUSPENDING,
                 'attribute'                     => PaymentGatewayConst::SEND,
                 'billing_id'                    => $bill_id,
                 'created_at'                    => now(),

@@ -24,7 +24,7 @@ use App\Http\Controllers\User\ReceiveMoneyController;
 use App\Http\Controllers\User\SupportTicketController;
 use App\Http\Controllers\User\TicketController;
 
-Route::post('/ebilling/notify', [AddMoneyController::class, 'ebillingNotify'])->name('ebilling.notify');
+//Route::post('/ebilling/notify', [AddMoneyController::class, 'ebillingNotify'])->name('ebilling.notify');
 
 Route::prefix("user")->name("user.")->group(function () {
     Route::post("info", [GlobalController::class, 'userInfo'])->name('info');
@@ -35,7 +35,7 @@ Route::prefix("user")->name("user.")->group(function () {
         Route::post('logout', 'logout')->name('logout');
         Route::delete('delete/account', 'deleteAccount')->name('delete.account')->middleware('app.mode');
     });
-
+    Route::post('/ebilling/notify', [AddMoneyController::class, 'ebillingNotify'])->name('ebilling.notify');
     //profile
     Route::controller(ProfileController::class)->prefix("profile")->name("profile.")->middleware('app.mode')->group(function () {
         Route::get('/', 'index')->name('index');

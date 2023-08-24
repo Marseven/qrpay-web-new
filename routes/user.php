@@ -70,6 +70,7 @@ Route::prefix("user")->name("user.")->group(function () {
         Route::get('manual/payment', 'manualPayment')->name('manual.payment');
         Route::post('manual/payment/confirmed', 'manualPaymentConfirmed')->name('manual.payment.confirmed');
         Route::get('/flutterwave/callback', 'flutterwaveCallback')->name('flutterwave.callback');
+
         //ebilling
         Route::get('/ebilling/callback/{trx}', 'ebillingCallback')->name('ebilling.callback');
     });

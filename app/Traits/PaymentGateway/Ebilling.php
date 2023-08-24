@@ -32,7 +32,7 @@ trait Ebilling
         $eb_reference = $trx_id;
         $eb_email = Auth::user()->email;
         $eb_msisdn = Auth::user()->phone ?? '074808000';
-        $eb_callbackurl = url('/ebilling/callback/' . $trx_id);
+        $eb_callbackurl = url('add-money/ebilling/callback/' . $trx_id);
         $expiry_period = 60; // 60 minutes timeout
 
 

@@ -152,11 +152,13 @@ class AddMoneyController extends Controller
     public function ebillingCallback($trx_id)
     {
         $trx = Transaction::where('trx_id', $trx_id)->first();
-        dd($trx);
+
         //if payment is successful
         if ($trx && $trx->status == 1) {
             return redirect()->route("user.add.money.index")->with(['success' => ['Successfully added money']]);
         } else {
+            $trx->status = PaymentGatewayConst::STATUSREJECTED;
+            $trx->save();
             return redirect()->route('user.add.money.index')->with(['error' => ['Add money cancelled']]);
         }
     }

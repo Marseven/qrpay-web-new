@@ -34,27 +34,7 @@
                     'icon' => 'menu-icon las la-rocket',
                 ])
 
-                {{-- Section Default --}}
-                @include('admin.components.side-nav.link-group', [
-                    'group_title' => 'Default',
-                    'group_links' => [
-                        [
-                            'title' => 'Setup Currency',
-                            'route' => 'admin.currency.index',
-                            'icon' => 'menu-icon las la-coins',
-                        ],
-                        [
-                            'title' => 'Fees & Charges',
-                            'route' => 'admin.trx.settings.index',
-                            'icon' => 'menu-icon las la-wallet',
-                        ],
-                        // [
-                        //     'title'     => "Virtual Card Api",
-                        //     'route'     => "admin.virtual.card.api",
-                        //     'icon'      => "menu-icon las la-wallet",
-                        // ]
-                    ],
-                ])
+
                 {{-- Section Ramitance & Logs --}}
                 {{-- @include('admin.components.side-nav.link-group',[
                     'group_title'       => "Ramitance & Logs",
@@ -290,6 +270,28 @@
                         </a>
                     </li> --}}
                 @endif
+
+                {{-- Section Default --}}
+                @include('admin.components.side-nav.link-group', [
+                    'group_title' => 'Default',
+                    'group_links' => [
+                        [
+                            'title' => 'Setup Currency',
+                            'route' => 'admin.currency.index',
+                            'icon' => 'menu-icon las la-coins',
+                        ],
+                        [
+                            'title' => 'Fees & Charges',
+                            'route' => 'admin.trx.settings.index',
+                            'icon' => 'menu-icon las la-wallet',
+                        ],
+                        // [
+                        //     'title'     => "Virtual Card Api",
+                        //     'route'     => "admin.virtual.card.api",
+                        //     'icon'      => "menu-icon las la-wallet",
+                        // ]
+                    ],
+                ])
 
                 {{-- Interface Panel --}}
                 @include('admin.components.side-nav.link-group', [

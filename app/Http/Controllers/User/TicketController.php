@@ -31,9 +31,10 @@ class TicketController extends Controller
 
     public function payConfirm(Request $request)
     {
+        dd($request);
         $request->validate([
             'ticket_type' => 'required|string',
-            'ticket_number' => 'required|min:8',
+            'ticket_number' => 'required',
             'amount' => 'required|numeric|gt:0',
         ]);
         $basic_setting = BasicSettings::first();

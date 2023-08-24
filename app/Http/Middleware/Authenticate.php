@@ -27,6 +27,6 @@ class Authenticate extends Middleware
             return route('login');
         }
 
-        dd(!$request->expectsJson() && !$request->routeIs("ebilling.notify"));
+        //dd(!$request->expectsJson() && !$request->routeIs("ebilling.notify"));
     }
 }

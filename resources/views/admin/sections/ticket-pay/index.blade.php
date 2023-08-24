@@ -63,8 +63,8 @@
                                     @endif
 
                                 </td>
-                                <td><span class="fw-bold">{{ @$item->details->bill_type_name }}</span></td>
-                                <td><span class="fw-bold">{{ @$item->details->bill_number }}</span></td>
+                                <td><span class="fw-bold">{{ @$item->details->ticket_type_name }}</span></td>
+                                <td><span class="fw-bold">{{ @$item->details->ticket_number }}</span></td>
                                 <td>{{ number_format($item->request_amount, 2) }} {{ get_default_currency_code() }}</td>
                                 <td>
                                     <span class="{{ $item->stringStatus->class }}">{{ $item->stringStatus->value }}</span>
@@ -72,8 +72,8 @@
                                 <td>{{ $item->created_at->format('d-m-y h:i:s A') }}</td>
                                 <td>
                                     @include('admin.components.link.info-default', [
-                                        'href' => setRoute('admin.bill.pay.details', $item->id),
-                                        'permission' => 'admin.bill.pay.details',
+                                        'href' => setRoute('admin.ticket.pay.details', $item->id),
+                                        'permission' => 'admin.ticket.pay.details',
                                     ])
 
                                 </td>

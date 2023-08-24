@@ -51,7 +51,7 @@
                                         </select>
                                         @foreach ($ticketType ?? [] as $type)
                                             <input type="hidden" name="ticket_price_{{ $type->id }}"
-                                                value="{{ $type->price }}">
+                                                value="{{ $type->price }}" disabled>
                                         @endforeach
 
                                     </div>

@@ -6,6 +6,7 @@
     </div>
     <div class="content">
         <h3 class="title">{{ $title }}</h3>
-        <p>{{ (isset($sub_title)) ? $sub_title : __("Welcome To") . " " . $basic_settings->site_name . " " . "Admin Panel" }}</p>
+        <p>{{ isset($sub_title) ? $sub_title : "Bienvu dans l'espace d'administration de " . $basic_settings->site_name . ' ' }}
+        </p>
     </div>
 </div>

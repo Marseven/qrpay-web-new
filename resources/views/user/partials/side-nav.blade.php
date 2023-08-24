@@ -19,6 +19,18 @@
                         </a>
                     </li>
                     <li class="sidebar-menu-item">
+                        <a href="{{ setRoute('user.ticket.pay.index') }}">
+                            <i class="menu-icon fas fa-shopping-bag"></i>
+                            <span class="menu-title">{{ __('Ticket Pay') }}</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="{{ setRoute('user.add.money.index') }}">
+                            <i class="menu-icon fas fa-plus-circle"></i>
+                            <span class="menu-title">{{ __('Add Money') }}</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
                         <a href="{{ setRoute('user.send.money.index') }}">
                             <i class="menu-icon fas fa-paper-plane"></i>
                             <span class="menu-title">{{ __('Send Money') }}</span>
@@ -37,12 +49,7 @@
                             <span class="menu-title">{{ __("Remittance") }}</span>
                         </a>
                     </li> --}}
-                    <li class="sidebar-menu-item">
-                        <a href="{{ setRoute('user.add.money.index') }}">
-                            <i class="menu-icon fas fa-plus-circle"></i>
-                            <span class="menu-title">{{ __('Add Money') }}</span>
-                        </a>
-                    </li>
+
                     {{-- <li class="sidebar-menu-item">
                         <a href="{{ setRoute('user.money.out.index') }}">
                             <i class="menu-icon fas fa-arrow-alt-circle-right"></i>
@@ -68,12 +75,6 @@
                         </a>
                     </li> --}}
 
-                    <li class="sidebar-menu-item">
-                        <a href="{{ setRoute('user.ticket.pay.index') }}">
-                            <i class="menu-icon fas fa-shopping-bag"></i>
-                            <span class="menu-title">{{ __('Ticket Pay') }}</span>
-                        </a>
-                    </li>
                     {{-- <li class="sidebar-menu-item">
                         <a href="{{ setRoute('user.mobile.topup.index') }}">
                             <i class="menu-icon fas fa-mobile"></i>

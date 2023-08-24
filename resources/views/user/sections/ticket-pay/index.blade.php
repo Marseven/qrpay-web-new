@@ -323,7 +323,7 @@
             if (charges == false) {
                 return false;
             }
-            $(".fees-show").html("Ticket Pay: " + parseFloat(charges.fixed).toFixed(2) + " " + currencyCode + " + " +
+            $(".fees-show").html("Ticket Pay Fees: " + parseFloat(charges.fixed).toFixed(2) + " " + currencyCode + " + " +
                 parseFloat(charges.percent).toFixed(2) + "%  ");
         }
 
@@ -341,7 +341,7 @@
             // Fees
             //ticket number
             if (ticketNumber == '' || ticketNumber == 0) {
-                $('.ticket-number').text("Ex: 1234567891");
+                $('.ticket-number').text("0");
             } else {
                 $('.ticket-number').text(ticketNumber);
             }

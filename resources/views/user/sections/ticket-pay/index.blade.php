@@ -348,6 +348,9 @@
                 $('.ticket-number').text(ticketNumber);
             }
 
+            var totalPay = parseFloat(senderAmount) * parseFloat(sender_currency_rate)
+            $("input[name=amount]").val(totalPay);
+
             // Fees
             var charges = feesCalculation();
             var total_charge = 0;
@@ -360,8 +363,7 @@
             $('.fees').text(total_charge + " " + sender_currency);
 
             // Pay In Total
-            var totalPay = parseFloat(senderAmount) * parseFloat(sender_currency_rate)
-            $("input[name=amount]").val(totalPay);
+
             var pay_in_total = 0;
             if (senderAmount == 0) {
                 pay_in_total = 0;

@@ -22,7 +22,7 @@
                                 <h4 class="title">{{ __('Bill Pay') }} <span
                                         class="text--warning">({{ @$item->details->bill_type_name }})</span></h4>
                             @elseif ($item->type == payment_gateway_const()::TICKETPAY)
-                                <h4 class="title">{{ __('Ticket Pay') }} {{ @$item->details->trx_id }}<span
+                                <h4 class="title">{{ __('Ticket Pay') }} {{ @$item->trx_id }}<span
                                         class="text--warning">({{ @$item->details->ticket_type_name }})</span></h4>
                             @elseif ($item->type == payment_gateway_const()::MOBILETOPUP)
                                 <h4 class="title">{{ __('Mobile Topup') }} <span

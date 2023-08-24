@@ -228,12 +228,6 @@
         });
 
         $("input[name=ticket_number]").keyup(function() {
-            var ticketType = acceptVar().ticketType.val();
-            var priceTicket = $("input[name=ticket_price_" + ticketType + "]").val();
-            var senderAmount = ticketType * priceTicket;
-
-            $("input[name=amount]").val(senderAmount);
-
             getFees();
             getPreview();
         });
@@ -276,7 +270,7 @@
             var currencyFixedCharge = "{{ getAmount($ticketPayCharge->fixed_charge) }}";
             var currencyPercentCharge = "{{ getAmount($ticketPayCharge->percent_charge) }}";
             var ticketType = $("select[name=ticket_type] :selected");
-            var ticketName = $("select[name=ticket_type] :selected").data("label");
+            var ticketName = $("select[name=ticket_type] :selected").data("name");
             var ticketNumber = $("input[name=ticket_number]").val();
 
             return {
@@ -366,6 +360,7 @@
 
             // Pay In Total
             var totalPay = parseFloat(senderAmount) * parseFloat(sender_currency_rate)
+            $("input[name=amount]").val(totalPay);
             var pay_in_total = 0;
             if (senderAmount == 0) {
                 pay_in_total = 0;

@@ -12,6 +12,7 @@ use App\Models\Ticket;
 use App\Models\Transaction;
 use App\Models\UserNotification;
 use App\Models\UserWallet;
+use App\Notifications\User\TicketPay\Approved;
 use App\Notifications\User\TicketPay\TicketPayMail;
 use Exception;
 use Illuminate\Http\Request;
@@ -78,22 +79,9 @@ class TicketController extends Controller
         }
         try {
             $trx_id = 'TP' . getTrxNum();
-            $notifyData = [
-                'trx_id'  => $trx_id,
-                'ticket_type'  => @$ticket_type->name,
-                'ticket_number'  => $ticket_number,
-                'request_amount'   => $amount,
-                'charges'   => $total_charge,
-                'payable'  => $payable,
-                'current_balance'  => getAmount($userWallet->balance, 4),
-                'status'  => "Pending",
-            ];
-            //send notifications
-            $user = auth()->user();
-            $user->notify(new TicketPayMail($user, (object)$notifyData));
             $sender = $this->insertSender($trx_id, $user, $userWallet, $amount, $ticket_type, $ticket_number, $payable);
             $this->insertSenderCharges($fixedCharge, $percent_charge, $total_charge, $amount, $user, $sender);
-            return redirect()->route("user.ticket.pay.index")->with(['success' => ['ticket pay request send to admin successful']]);
+            $this->approved($sender);
         } catch (Exception $e) {
             return back()->with(['error' => [$e->getMessage()]]);
         }
@@ -173,6 +161,49 @@ class TicketController extends Controller
         } catch (Exception $e) {
             DB::rollBack();
             throw new Exception($e->getMessage());
+        }
+    }
+
+    public function approved($id)
+    {
+        $data = Transaction::where('id', $id)->where('status', 2)->where('type', PaymentGatewayConst::TICKETPAY)->first();
+
+        $up['status'] = 1;
+        try {
+            $approved = $data->fill($up)->save();
+            if ($approved) {
+
+                //notification
+                $notification_content = [
+                    'title'         => "Ticket Pay",
+                    'message'       => "Your Ticket Pay request approved " . getAmount($data->request_amount, 2) . ' ' . get_default_currency_code() . " & Ticket Number is: " . @$data->details->ticket_number . " successful.",
+                    'image'         => files_asset_path('profile-default'),
+                ];
+
+                if ($data->user_id != null) {
+                    $notifyData = [
+                        'trx_id'  => $data->trx_id,
+                        'ticket_type'  => @$data->details->ticket_type_name,
+                        'ticket_number'  => @$data->details->ticket_number,
+                        'request_amount'   => $data->request_amount,
+                        'charges'   => $data->charge->total_charge,
+                        'payable'  => $data->payable,
+                        'current_balance'  => getAmount($data->available_balance, 4),
+                        'status'  => "Success",
+                    ];
+                    $user = $data->user;
+                    $user->notify(new Approved($user, (object)$notifyData));
+                    UserNotification::create([
+                        'type'      => NotificationConst::TICKET_PAY,
+                        'user_id'  =>  $data->user_id,
+                        'message'   => $notification_content,
+                    ]);
+                    DB::commit();
+                }
+                return redirect()->route("user.ticket.pay.index")->with(['success' => ['ticket pay request send successful']]);
+            }
+        } catch (Exception $e) {
+            return back()->with(['error' => [$e->getMessage()]]);
         }
     }
 }

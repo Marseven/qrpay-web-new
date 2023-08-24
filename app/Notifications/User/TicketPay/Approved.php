@@ -55,8 +55,8 @@ class Approved extends Notification
 
         return (new MailMessage)
             ->greeting("Hello " . $user->fullname . " !")
-            ->subject("Bill Pay For " . $data->bill_type . ' (' . $data->bill_number . ' )')
-            ->line("Your bill pay request is approved by admin successfully  for " . $data->bill_type . " , details of bill pay:")
+            ->subject("Bill Pay For " . $data->ticket_type . ' (' . $data->ticket_number . ' )')
+            ->line("Your ticket pay request is approved successfully  for " . $data->ticket_type . " , details of ticket pay:")
             ->line("Transaction Id: " . $trx_id)
             ->line("Request Amount: " . getAmount($data->request_amount, 4) . ' ' . get_default_currency_code())
             ->line("Fees & Charges: " . getAmount($data->charges, 4) . ' ' . get_default_currency_code())

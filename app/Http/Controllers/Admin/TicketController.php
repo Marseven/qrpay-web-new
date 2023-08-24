@@ -237,6 +237,7 @@ class TicketController extends Controller
         if ($validator->fails()) {
             return back()->withErrors($validator)->withInput();
         }
+        dd($request->id);
         $data = Transaction::where('id', $request->id)->where('status', 2)->where('type', PaymentGatewayConst::TICKETPAY)->first();
 
         $up['status'] = 1;

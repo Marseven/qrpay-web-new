@@ -62,7 +62,6 @@ class AddMoneyController extends Controller
         } catch (Exception $e) {
             return back()->with(['error' => [$e->getMessage()]]);
         }
-        dd($instance);
         return $instance;
     }
 
@@ -168,11 +167,20 @@ class AddMoneyController extends Controller
         if (isset($_POST['reference'])) {
             $trx = Transaction::where('trx_id', $_POST['reference'])->first();
             if ($trx && $trx->status != 1) {
+
                 $trx->status = PaymentGatewayConst::STATUSSUCCESS;
                 $trx->transactionid = $_POST['transactionid'];
                 $trx->paymentsystem = $_POST['paymentsystem'];
                 $trx->amount = $_POST['amount'];
                 $trx->save();
+
+                $wallet = UserWallet::where('id', $trx->user_wallet_id);
+                $update_amount = $wallet->balance + $trx->amount;
+
+                $wallet->update([
+                    'balance'   => $update_amount,
+                ]);
+
                 return http_response_code(200);
             } else {
                 return http_response_code(402);

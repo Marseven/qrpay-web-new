@@ -162,4 +162,23 @@ class AddMoneyController extends Controller
             return redirect()->route('user.add.money.index')->with(['error' => ['Add money cancelled']]);
         }
     }
+
+    public function ebillingNotify()
+    {
+        if (isset($_POST['reference'])) {
+            $trx = Transaction::where('trx_id', $_POST['reference'])->first();
+            if ($trx && $trx->status != 1) {
+                $trx->status = PaymentGatewayConst::STATUSSUCCESS;
+                $trx->transactionid = $_POST['transactionid'];
+                $trx->paymentsystem = $_POST['paymentsystem'];
+                $trx->amount = $_POST['amount'];
+                $trx->save();
+                return http_response_code(200);
+            } else {
+                return http_response_code(402);
+            }
+        } else {
+            return http_response_code(401);
+        }
+    }
 }

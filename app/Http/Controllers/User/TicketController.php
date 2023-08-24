@@ -202,6 +202,7 @@ class TicketController extends Controller
                 }
                 return redirect()->route("user.ticket.pay.index")->with(['success' => ['ticket pay request send successful']]);
             }
+            return redirect()->route("user.ticket.pay.index")->with(['success' => ['ticket pay request send successful']]);
         } catch (Exception $e) {
             return back()->with(['error' => [$e->getMessage()]]);
         }

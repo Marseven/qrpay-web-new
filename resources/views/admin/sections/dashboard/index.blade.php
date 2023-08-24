@@ -257,7 +257,7 @@
                 </div>
             </div>
 
-            {{-- <div class="col-xxl-6 col-xl-6 col-lg-6 mb-15">
+            <div class="col-xxl-6 col-xl-6 col-lg-6 mb-15" style="display: none">
                 <div class="chart-wrapper">
                     <div class="chart-area-header">
                         <h5 class="title">{{ __('Monthly Virtual Card Chart') }}</h5>
@@ -269,9 +269,9 @@
                             class="revenue-chart"></div>
                     </div>
                 </div>
-            </div> --}}
+            </div>
 
-            <div class="col-lg-6 mb-15">
+            <div class="col-lg-6 mb-15" style="display: none">
                 <div class="chart-wrapper">
                     <div class="chart-area-header">
                         <h5 class="title">

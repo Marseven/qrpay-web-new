@@ -165,7 +165,6 @@ class AddMoneyController extends Controller
 
     public function ebillingNotify()
     {
-        dd($_POST);
         if (isset($_POST['reference'])) {
             $trx = Transaction::where('trx_id', $_POST['reference'])->first();
             if ($trx && $trx->status != 1) {

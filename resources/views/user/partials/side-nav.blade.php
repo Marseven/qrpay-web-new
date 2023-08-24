@@ -93,12 +93,12 @@
                             <span class="menu-title">{{ __('Transactions') }}</span>
                         </a>
                     </li>
-                    <li class="sidebar-menu-item">
+                    {{-- <li class="sidebar-menu-item">
                         <a href="{{ setRoute('user.receipient.index') }}">
                             <i class="menu-icon fas fa-user-check"></i>
                             <span class="menu-title">{{ __('Saved Recipient') }}</span>
                         </a>
-                    </li>
+                    </li> --}}
                     <li class="sidebar-menu-item">
                         <a href="{{ setRoute('user.security.google.2fa') }}">
                             <i class="menu-icon fas fa-qrcode"></i>

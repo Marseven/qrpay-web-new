@@ -175,7 +175,6 @@ class AddMoneyController extends Controller
                 $trx->save();
 
                 $wallet = UserWallet::where('id', $trx->user_wallet_id)->first();
-                dd($wallet);
                 $update_amount = $wallet->balance + $trx->amount;
 
                 $wallet->update([

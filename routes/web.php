@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\SiteController;
+use App\Http\Controllers\User\AddMoneyController;
 use Illuminate\Support\Facades\Route;
 
 use Flutterwave\Service\Transfer;

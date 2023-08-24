@@ -31,7 +31,6 @@ class TicketController extends Controller
 
     public function payConfirm(Request $request)
     {
-        dd($request);
         $request->validate([
             'ticket_type' => 'required|string',
             'ticket_number' => 'required',

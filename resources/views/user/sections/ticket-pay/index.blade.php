@@ -44,17 +44,30 @@
                                         <label>{{ __('Ticket Type') }} <span class="text--base">*</span></label>
                                         <select class="form--control" name="ticket_type">
                                             @foreach ($ticketType ?? [] as $type)
-                                                <option value="{{ $type->id }}" data-name="{{ $type->name }}">
-                                                    {{ $type->name }}</option>
+                                                <option value="{{ $type->id }}" data-name="{{ $type->label }}">
+                                                    {{ $type->label }}</option>
                                             @endforeach
 
                                         </select>
                                     </div>
 
                                     <div class="col-xl-6 col-lg-6  form-group">
-                                        <label>Ticket Number <span class="text--base">*</span></label>
+                                        <label>Nombre de Ticket <span class="text--base">*</span></label>
                                         <input type="number" class="form--control" required name="ticket_number"
-                                            placeholder="Enter Ticket Number" value="{{ old('ticket_number') }}">
+                                            placeholder="Enter le nombre de ticket" value="{{ old('ticket_number') }}">
+
+                                    </div>
+
+                                    <div class="col-xxl-12 col-xl-12 col-lg-12  form-group">
+                                        <label>{{ __('Amount') }}<span>*</span></label>
+                                        <div class="input-group">
+                                            <input type="number" class="form--control" placeholder="Enter Amount"
+                                                name="amount" value="{{ old('amount') }}">
+                                            <select class="form--control nice-select currency" name="currency">
+                                                <option value="{{ get_default_currency_code() }}">
+                                                    {{ get_default_currency_code() }}</option>
+                                            </select>
+                                        </div>
 
                                     </div>
 

@@ -57,13 +57,17 @@
                     <div class="col-xl-4 col-lg-4 form-group">
                         <ul class="user-profile-list two">
                             <li class="one">Ticket Amount:
-                                <span>{{ get_amount($data->request_amount, get_default_currency_code()) }}</span></li>
+                                <span>{{ get_amount($data->request_amount, get_default_currency_code()) }}</span>
+                            </li>
                             <li class="two">Charge:
-                                <span>{{ get_amount($data->charge->total_charge, get_default_currency_code()) }}</span></li>
+                                <span>{{ get_amount($data->charge->total_charge, get_default_currency_code()) }}</span>
+                            </li>
                             <li class="three">Payable Amount:
-                                <span>{{ get_amount($data->payable, get_default_currency_code()) }}</span></li>
+                                <span>{{ get_amount($data->payable, get_default_currency_code()) }}</span>
+                            </li>
                             <li class="three">Remaining Balance:
-                                <span>{{ get_amount($data->available_balance, get_default_currency_code()) }}</span></li>
+                                <span>{{ get_amount($data->available_balance, get_default_currency_code()) }}</span>
+                            </li>
                             <li class="four">Status: <span
                                     class="{{ @$data->stringStatus->class }}">{{ @$data->stringStatus->value }}</span>
                             </li>
@@ -94,7 +98,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form class="modal-form" action="{{ setRoute('admin.bill.pay.approved') }}" method="POST">
+                        <form class="modal-form" action="{{ setRoute('admin.ticket.pay.approved') }}" method="POST">
 
                             @csrf
                             @method('PUT')
@@ -124,7 +128,7 @@
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        <form class="modal-form" action="{{ setRoute('admin.bill.pay.rejected') }}" method="POST">
+                        <form class="modal-form" action="{{ setRoute('admin.ticket.pay.rejected') }}" method="POST">
                             @csrf
                             @method('PUT')
                             <div class="row mb-10-none">

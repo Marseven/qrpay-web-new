@@ -61,8 +61,8 @@
                                     <div class="col-xxl-12 col-xl-12 col-lg-12  form-group">
                                         <label>{{ __('Amount') }}<span>*</span></label>
                                         <div class="input-group">
-                                            <input type="number" class="form--control" placeholder="Enter Amount"
-                                                name="amount" value="{{ old('amount') }}" disabled>
+                                            <input type="number" class="form--control" placeholder="0" name="amount"
+                                                value="{{ old('amount') }}" disabled>
                                             <select class="form--control nice-select currency" name="currency" disabled>
                                                 <option value="{{ get_default_currency_code() }}">
                                                     {{ get_default_currency_code() }}</option>

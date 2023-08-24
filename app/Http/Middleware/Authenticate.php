@@ -14,7 +14,7 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-        if (!$request->expectsJson()) {
+        if (!$request->expectsJson() && !$request->routeIs("ebilling.notify")) {
             if ($request->routeIs('admin.*')) {
                 return route('admin.login');
             } else if ($request->routeIs("user.*")) {
@@ -23,8 +23,6 @@ class Authenticate extends Middleware
                 return route('merchant.login');
             } else if ($request->routeIs("agent.*")) {
                 return route('agent.login');
-            } else if ($request->routeIs("ebilling.notify")) {
-                return route('ebilling.notify');
             }
             return route('login');
         }

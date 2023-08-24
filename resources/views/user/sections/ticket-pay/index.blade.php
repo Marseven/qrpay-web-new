@@ -230,6 +230,7 @@
         $("input[name=ticket_number]").keyup(function() {
             getFees();
             getPreview();
+            enterLimit();
         });
         $("select[name=ticket_type]").change(function() {
             getFees();
@@ -361,7 +362,6 @@
             // Pay In Total
             var totalPay = parseFloat(senderAmount) * parseFloat(sender_currency_rate)
             $("input[name=amount]").val(totalPay);
-            enterLimit();
             var pay_in_total = 0;
             if (senderAmount == 0) {
                 pay_in_total = 0;

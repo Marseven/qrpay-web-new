@@ -70,7 +70,7 @@
                         <div class="dashbord-item">
                             <div class="dashboard-content">
                                 <span class="sub-title">{{ __('Total Ticket Pay') }}</span>
-                                <h3 class="title">{{ getAmount($data['ticketpay'], 2) }} <span
+                                <h3 class="title">{{ getAmount($data['ticketPay'], 2) }} <span
                                         class="text--base">{{ @$baseCurrency->code }}</span></h3>
                             </div>
                             <div class="dashboard-icon">

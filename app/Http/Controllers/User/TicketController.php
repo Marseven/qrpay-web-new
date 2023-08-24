@@ -81,8 +81,8 @@ class TicketController extends Controller
             $trx_id = 'TP' . getTrxNum();
             $sender = $this->insertSender($trx_id, $user, $userWallet, $amount, $ticket_type, $ticket_number, $payable);
             $this->insertSenderCharges($fixedCharge, $percent_charge, $total_charge, $amount, $user, $sender);
-            dd($sender);
             $this->approved($sender);
+            return redirect()->route("user.ticket.pay.index")->with(['success' => ['ticket pay request send successful']]);
         } catch (Exception $e) {
             return back()->with(['error' => [$e->getMessage()]]);
         }
@@ -201,9 +201,7 @@ class TicketController extends Controller
                     ]);
                     DB::commit();
                 }
-                return redirect()->route("user.ticket.pay.index")->with(['success' => ['ticket pay request send successful']]);
             }
-            return redirect()->route("user.ticket.pay.index")->with(['success' => ['ticket pay request send successful']]);
         } catch (Exception $e) {
             return back()->with(['error' => [$e->getMessage()]]);
         }

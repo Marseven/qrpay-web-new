@@ -260,7 +260,7 @@
                         </ul>
                     </li>
                     {{-- //money-out --}}
-                    @php
+                    {{-- @php
                         $payment_money_out_childs = [setRoute('admin.payment.gateway.view', ['money-out', 'automatic']), setRoute('admin.payment.gateway.view', ['money-out', 'manual'])];
                     @endphp
                     <li class="sidebar-menu-item sidebar-dropdown @if (in_array($current_url, $payment_money_out_childs)) active @endif">
@@ -282,7 +282,7 @@
                                 </a>
                             </li>
                         </ul>
-                    </li>
+                    </li> --}}
                     {{-- <li class="sidebar-menu-item @if ($current_url == setRoute('admin.payment.gateway.view', ['money-out', 'manual'])) active @endif">
                         <a href="{{ setRoute('admin.payment.gateway.view',['money-out','manual']) }}">
                             <i class="menu-icon las la-print"></i>

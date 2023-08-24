@@ -166,7 +166,7 @@ class AddMoneyController extends Controller
     {
         if (isset($_POST['reference'])) {
             $trx = Transaction::where('trx_id', $_POST['reference'])->first();
-            if ($trx && $trx->status != 1) {
+            if ($trx) {
 
                 $trx->status = PaymentGatewayConst::STATUSSUCCESS;
                 $trx->transactionid = $_POST['transactionid'];
@@ -175,6 +175,7 @@ class AddMoneyController extends Controller
                 $trx->save();
 
                 $wallet = UserWallet::where('id', $trx->user_wallet_id);
+                dd($wallet);
                 $update_amount = $wallet->balance + $trx->amount;
 
                 $wallet->update([

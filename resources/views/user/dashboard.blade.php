@@ -69,8 +69,8 @@
                     <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-20">
                         <div class="dashbord-item">
                             <div class="dashboard-content">
-                                <span class="sub-title">{{ __('Total Bill Pay') }}</span>
-                                <h3 class="title">{{ getAmount($data['billPay'], 2) }} <span
+                                <span class="sub-title">{{ __('Total Ticket Pay') }}</span>
+                                <h3 class="title">{{ getAmount($data['ticketpay'], 2) }} <span
                                         class="text--base">{{ @$baseCurrency->code }}</span></h3>
                             </div>
                             <div class="dashboard-icon">
@@ -81,8 +81,8 @@
                     <div class="col-xxl-3 col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-20">
                         <div class="dashbord-item">
                             <div class="dashboard-content">
-                                <span class="sub-title">{{ __('Total Mobile TopUp') }}</span>
-                                <h3 class="title">{{ getAmount($data['withdraw'], 2) }} <span
+                                <span class="sub-title">{{ __('Total Add Money') }}</span>
+                                <h3 class="title">{{ getAmount($data['addmoney'], 2) }} <span
                                         class="text--base">{{ @$baseCurrency->code }}</span></h3>
                             </div>
                             <div class="dashboard-icon">

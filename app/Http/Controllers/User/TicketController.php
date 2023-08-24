@@ -28,12 +28,13 @@ class TicketController extends Controller
         $transactions = Transaction::auth()->ticketPay()->latest()->take(10)->get();
         return view('user.sections.ticket-pay.index', compact("page_title", 'ticketPayCharge', 'transactions', 'ticketType'));
     }
+
     public function payConfirm(Request $request)
     {
         $request->validate([
             'ticket_type' => 'required|string',
             'ticket_number' => 'required|min:8',
-
+            'amount' => 'required|numeric|gt:0',
         ]);
         $basic_setting = BasicSettings::first();
         $user = auth()->user();
@@ -76,7 +77,7 @@ class TicketController extends Controller
             return back()->with(['error' => ['Sorry, insuficiant balance']]);
         }
         try {
-            $trx_id = 'BP' . getTrxNum();
+            $trx_id = 'TP' . getTrxNum();
             $notifyData = [
                 'trx_id'  => $trx_id,
                 'ticket_type'  => @$ticket_type->name,
@@ -105,7 +106,7 @@ class TicketController extends Controller
         $afterCharge = ($authWallet->balance - $payable);
         $details = [
             'ticket_type_id' => $ticket_type->id ?? '',
-            'ticket_type_name' => $ticket_type->name ?? '',
+            'ticket_type_name' => $ticket_type->label ?? '',
             'ticket_number' => $ticket_number,
             'ticket_amount' => $amount ?? "",
         ];

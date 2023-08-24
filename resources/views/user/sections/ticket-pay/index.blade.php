@@ -49,6 +49,11 @@
                                             @endforeach
 
                                         </select>
+                                        @foreach ($ticketType ?? [] as $type)
+                                            <input type="hidden" name="ticket_price_{{ $type->id }}"
+                                                value="{{ $type->price }}">
+                                        @endforeach
+
                                     </div>
 
                                     <div class="col-xl-6 col-lg-6  form-group">
@@ -221,14 +226,14 @@
             getFees();
             getPreview();
         });
-        $("input[name=amount]").keyup(function() {
-            getFees();
-            getPreview();
-        });
-        $("input[name=amount]").focusout(function() {
-            enterLimit();
-        });
+
         $("input[name=ticket_number]").keyup(function() {
+            var ticketType = acceptVar().ticketType.val();
+            var priceTicket = $("input[name=ticket_price_" + ticketType + "]").val();
+            var senderAmount = ticketType * priceTicket;
+
+            $("input[name=amount]").val(senderAmount);
+
             getFees();
             getPreview();
         });
@@ -271,7 +276,7 @@
             var currencyFixedCharge = "{{ getAmount($ticketPayCharge->fixed_charge) }}";
             var currencyPercentCharge = "{{ getAmount($ticketPayCharge->percent_charge) }}";
             var ticketType = $("select[name=ticket_type] :selected");
-            var ticketName = $("select[name=ticket_type] :selected").data("name");
+            var ticketName = $("select[name=ticket_type] :selected").data("label");
             var ticketNumber = $("input[name=ticket_number]").val();
 
             return {
@@ -329,11 +334,13 @@
 
         function getPreview() {
             var senderAmount = $("input[name=amount]").val();
+            var ticketType = acceptVar().ticketType.val();
+            var priceTicket = $("input[name=ticket_price_" + ticketType + "]").val();
             var sender_currency = acceptVar().currencyCode;
             var sender_currency_rate = acceptVar().currencyRate;
             var ticketName = acceptVar().ticketName;
             var ticketNumber = acceptVar().ticketNumber;
-            senderAmount == "" ? senderAmount = 0 : senderAmount = senderAmount;
+            senderAmount == "" ? senderAmount = 0 : senderAmount = ticketNumber * priceTicket;
             // Sending Amount
             $('.request-amount').text(senderAmount + " " + defualCurrency);
             //ticket type

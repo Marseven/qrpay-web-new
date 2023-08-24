@@ -14,6 +14,6 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         'user/username/check',
         'user/check/email',
-        'user/ebilling/notify'
+        'ebilling/notify'
     ];
 }

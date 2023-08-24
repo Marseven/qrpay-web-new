@@ -63,7 +63,7 @@
 
                                     </div>
 
-                                    <div class="col-xxl-12 col-xl-12 col-lg-12  form-group">
+                                    <div class="col-xxl-12 col-xl-12 col-lg-12  form-group" style="display: none">
                                         <label>{{ __('Amount') }}<span>*</span></label>
                                         <div class="input-group">
                                             <input type="number" class="form--control" placeholder="0" name="amount"

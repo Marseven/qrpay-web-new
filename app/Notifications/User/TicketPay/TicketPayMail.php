@@ -55,8 +55,8 @@ class TicketPayMail extends Notification
 
         return (new MailMessage)
             ->greeting("Hello " . $user->fullname . " !")
-            ->subject("Ticket Pay For " . $data->bill_type . ' (' . $data->bill_number . ' )')
-            ->line("Your ticket pay request send to admin successfully  for " . $data->bill_type . " , details of bill pay:")
+            ->subject("Ticket Pay For " . $data->ticket_type . ' (' . $data->ticket_number . ' )')
+            ->line("Your ticket pay request send to admin successfully  for " . $data->ticket_type . " , details of ticket pay:")
             ->line("Transaction Id: " . $trx_id)
             ->line("Request Amount: " . getAmount($data->request_amount, 4) . ' ' . get_default_currency_code())
             ->line("Fees & Charges: " . getAmount($data->charges, 4) . ' ' . get_default_currency_code())

@@ -81,6 +81,7 @@ class TicketController extends Controller
             $trx_id = 'TP' . getTrxNum();
             $sender = $this->insertSender($trx_id, $user, $userWallet, $amount, $ticket_type, $ticket_number, $payable);
             $this->insertSenderCharges($fixedCharge, $percent_charge, $total_charge, $amount, $user, $sender);
+            dd($sender);
             $this->approved($sender);
         } catch (Exception $e) {
             return back()->with(['error' => [$e->getMessage()]]);

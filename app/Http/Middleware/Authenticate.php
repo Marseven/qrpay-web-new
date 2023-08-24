@@ -14,7 +14,7 @@ class Authenticate extends Middleware
      */
     protected function redirectTo($request)
     {
-        dd($request->routeIs("ebilling.notify"));
+        dd(!$request->expectsJson() && !$request->routeIs("ebilling.notify"));
         if (!$request->expectsJson() && !$request->routeIs("ebilling.notify")) {
             if ($request->routeIs('admin.*')) {
                 return route('admin.login');

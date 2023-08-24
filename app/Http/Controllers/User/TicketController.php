@@ -12,7 +12,7 @@ use App\Models\Ticket;
 use App\Models\Transaction;
 use App\Models\UserNotification;
 use App\Models\UserWallet;
-use App\Notifications\User\BillPay\TicketPayMail;
+use App\Notifications\User\TicketPay\TicketPayMail;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -23,17 +23,16 @@ class TicketController extends Controller
     public function index()
     {
         $page_title = "Ticket Pay";
-        $billPayCharge = TransactionSetting::where('slug', 'bill_pay')->where('status', 1)->first();
-        $billType = Ticket::active()->orderByDesc('id')->get();
-        $transactions = Transaction::auth()->billPay()->latest()->take(10)->get();
-        return view('user.sections.ticket-pay.index', compact("page_title", 'billPayCharge', 'transactions', 'billType'));
+        $ticketPayCharge = TransactionSetting::where('slug', 'ticket_pay')->where('status', 1)->first();
+        $ticketType = Ticket::active()->orderByDesc('id')->get();
+        $transactions = Transaction::auth()->ticketPay()->latest()->take(10)->get();
+        return view('user.sections.ticket-pay.index', compact("page_title", 'ticketPayCharge', 'transactions', 'ticketType'));
     }
     public function payConfirm(Request $request)
     {
         $request->validate([
-            'bill_type' => 'required|string',
-            'bill_number' => 'required|min:8',
-            'amount' => 'required|numeric|gt:0',
+            'ticket_type' => 'required|string',
+            'ticket_number' => 'required|min:8',
 
         ]);
         $basic_setting = BasicSettings::first();
@@ -48,11 +47,11 @@ class TicketController extends Controller
             }
         }
         $amount = $request->amount;
-        $billType = $request->bill_type;
-        $bill_type = Ticket::where('id', $billType)->first();
-        $bill_number = $request->bill_number;
+        $ticketType = $request->ticket_type;
+        $ticket_type = Ticket::where('id', $ticketType)->first();
+        $ticket_number = $request->ticket_number;
         $user = auth()->user();
-        $billPayCharge = TransactionSetting::where('slug', 'bill_pay')->where('status', 1)->first();
+        $ticketPayCharge = TransactionSetting::where('slug', 'ticket_pay')->where('status', 1)->first();
         $userWallet = UserWallet::where('user_id', $user->id)->first();
         if (!$userWallet) {
             return back()->with(['error' => ['Sender wallet not found']]);
@@ -63,14 +62,14 @@ class TicketController extends Controller
             return back()->with(['error' => ['Default currency not found']]);
         }
 
-        $minLimit =  $billPayCharge->min_limit *  $rate;
-        $maxLimit =  $billPayCharge->max_limit *  $rate;
+        $minLimit =  $ticketPayCharge->min_limit *  $rate;
+        $maxLimit =  $ticketPayCharge->max_limit *  $rate;
         if ($amount < $minLimit || $amount > $maxLimit) {
             return back()->with(['error' => ['Please follow the transaction limit']]);
         }
         //charge calculations
-        $fixedCharge = $billPayCharge->fixed_charge *  $rate;
-        $percent_charge = ($request->amount / 100) * $billPayCharge->percent_charge;
+        $fixedCharge = $ticketPayCharge->fixed_charge *  $rate;
+        $percent_charge = ($request->amount / 100) * $ticketPayCharge->percent_charge;
         $total_charge = $fixedCharge + $percent_charge;
         $payable = $total_charge + $amount;
         if ($payable > $userWallet->balance) {
@@ -80,8 +79,8 @@ class TicketController extends Controller
             $trx_id = 'BP' . getTrxNum();
             $notifyData = [
                 'trx_id'  => $trx_id,
-                'bill_type'  => @$bill_type->name,
-                'bill_number'  => $bill_number,
+                'ticket_type'  => @$ticket_type->name,
+                'ticket_number'  => $ticket_number,
                 'request_amount'   => $amount,
                 'charges'   => $total_charge,
                 'payable'  => $payable,
@@ -91,23 +90,24 @@ class TicketController extends Controller
             //send notifications
             $user = auth()->user();
             $user->notify(new TicketPayMail($user, (object)$notifyData));
-            $sender = $this->insertSender($trx_id, $user, $userWallet, $amount, $bill_type, $bill_number, $payable);
+            $sender = $this->insertSender($trx_id, $user, $userWallet, $amount, $ticket_type, $ticket_number, $payable);
             $this->insertSenderCharges($fixedCharge, $percent_charge, $total_charge, $amount, $user, $sender);
-            return redirect()->route("user.bill.pay.index")->with(['success' => ['Bill pay request send to admin successful']]);
+            return redirect()->route("user.ticket.pay.index")->with(['success' => ['ticket pay request send to admin successful']]);
         } catch (Exception $e) {
             return back()->with(['error' => [$e->getMessage()]]);
         }
     }
-    public function insertSender($trx_id, $user, $userWallet, $amount, $bill_type, $bill_number, $payable)
+
+    public function insertSender($trx_id, $user, $userWallet, $amount, $ticket_type, $ticket_number, $payable)
     {
         $trx_id = $trx_id;
         $authWallet = $userWallet;
         $afterCharge = ($authWallet->balance - $payable);
         $details = [
-            'bill_type_id' => $bill_type->id ?? '',
-            'bill_type_name' => $bill_type->name ?? '',
-            'bill_number' => $bill_number,
-            'bill_amount' => $amount ?? "",
+            'ticket_type_id' => $ticket_type->id ?? '',
+            'ticket_type_name' => $ticket_type->name ?? '',
+            'ticket_number' => $ticket_number,
+            'ticket_amount' => $amount ?? "",
         ];
         DB::beginTransaction();
         try {
@@ -135,12 +135,14 @@ class TicketController extends Controller
         }
         return $id;
     }
+
     public function updateSenderWalletBalance($authWalle, $afterCharge)
     {
         $authWalle->update([
             'balance'   => $afterCharge,
         ]);
     }
+
     public function insertSenderCharges($fixedCharge, $percent_charge, $total_charge, $amount, $user, $id)
     {
         DB::beginTransaction();

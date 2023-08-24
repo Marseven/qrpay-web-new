@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Notifications\User\BillPay;
+namespace App\Notifications\User\TicketPay;
 
 use Illuminate\Bus\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;

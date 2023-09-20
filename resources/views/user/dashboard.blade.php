@@ -24,7 +24,7 @@
                         <div class="dashbord-item">
                             <div class="dashboard-content">
                                 <span class="sub-title">{{ __('Balance') }}</span>
-                                <h3 class="title">{{ authWalletBalance() }} <span
+                                <h3 class="title">{{--{{ authWalletBalance() }}--}} Texte d'exemple ici <span
                                         class="text--base">{{ @$baseCurrency->code }}</span></h3>
                             </div>
 

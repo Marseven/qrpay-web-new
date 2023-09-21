@@ -11,7 +11,7 @@
                 'url' => setRoute('user.dashboard'),
             ],
         ],
-        'active' => __('menu du jour'),
+        'active' => __('menu'),
     ])
 @endsection
 

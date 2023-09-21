@@ -27,7 +27,7 @@
                     <li class="sidebar-menu-item">
                         <a href="{{ setRoute('menu.index')}}">
                             <i class="menu-icon fas fa-calendar"></i>
-                            <span class="menu-title">Menu du jour</span>
+                            <span class="menu-title">Menu</span>
                         </a>
                     </li>
                     <li class="sidebar-menu-item">

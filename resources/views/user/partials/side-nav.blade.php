@@ -19,15 +19,15 @@
                         </a>
                     </li>
                     <li class="sidebar-menu-item">
-                        <a href="{{ setRoute('menu.index')}}">
-                            <i class="menu-icon fas fa-calendar"></i>
-                            <span class="menu-title">Menu du jour</span>
-                        </a>
-                    </li>
-                    <li class="sidebar-menu-item">
                         <a href="{{ setRoute('user.ticket.pay.index') }}">
                             <i class="menu-icon fas fa-shopping-bag"></i>
                             <span class="menu-title">{{ __('Ticket Pay') }}</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a href="{{ setRoute('menu.index')}}">
+                            <i class="menu-icon fas fa-calendar"></i>
+                            <span class="menu-title">Menu du jour</span>
                         </a>
                     </li>
                     <li class="sidebar-menu-item">

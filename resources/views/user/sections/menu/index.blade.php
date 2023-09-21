@@ -8,7 +8,7 @@
         'breadcrumbs' => [
             [
                 'name' => __('Dashboard'),
-                'url' => setRoute('menu'),
+                'url' => "menu",
             ],
         ],
         'active' => __('Dashboard'),

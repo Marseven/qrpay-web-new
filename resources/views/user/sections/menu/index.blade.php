@@ -7,8 +7,8 @@
     @include('user.components.breadcrumb', [
         'breadcrumbs' => [
             [
-                'name' => __('Menu'),
-                'url' => setRoute('user.dashboard'),
+                'name' => __('Dashboard'),
+                'url' => setRoute('menu'),
             ],
         ],
         'active' => __('Dashboard'),

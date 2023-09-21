@@ -9,7 +9,7 @@
                 <button class="sidebar-menu-bar">
                     <i class="fas fa-exchange-alt"></i>
                 </button>
-            </div>
+            </div> 
             <div class="sidebar-menu-wrapper">
                 <ul class="sidebar-menu">
                     <li class="sidebar-menu-item">
@@ -20,7 +20,7 @@
                     </li>
                     <li class="sidebar-menu-item">
                         <a href="{{ setRoute('user.dashboard') }}">
-                            <i class="menu-icon fas fa-th-large"></i>
+                            <i class="menu-icon fas fa-cutlery"></i>
                             <span class="menu-title">Menu du jour</span>
                         </a>
                     </li>

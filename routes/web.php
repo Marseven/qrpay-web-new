@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\MenuController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\User\AddMoneyController;
 use Illuminate\Support\Facades\Route;
@@ -40,3 +41,6 @@ Route::controller(SiteController::class)->group(function () {
 });
 
 Route::post('/ebilling/notify', [AddMoneyController::class, 'ebillingNotify'])->name('ebilling.notify');
+Route::prefix("/menu")->controller(MenuController::class)->group(function (){
+    Route::get("/","getMenu");
+});

@@ -20,7 +20,7 @@
                     </li>
                     <li class="sidebar-menu-item">
                         <a href="{{ setRoute('user.dashboard') }}">
-                            <i class="menu-icon fas fa-cutlery"></i>
+                            <i class="menu-icon fas fa-calendar"></i>
                             <span class="menu-title">Menu du jour</span>
                         </a>
                     </li>

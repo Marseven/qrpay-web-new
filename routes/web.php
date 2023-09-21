@@ -41,6 +41,6 @@ Route::controller(SiteController::class)->group(function () {
 });
 
 Route::post('/ebilling/notify', [AddMoneyController::class, 'ebillingNotify'])->name('ebilling.notify');
-Route::prefix("/menu")->controller(MenuController::class)->group(function (){
-    Route::get("/","getMenu");
+Route::prefix("/menu")->name("menu.")->controller(MenuController::class)->group(function (){
+    Route::get("/","getMenu")->name("index");
 });

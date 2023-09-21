@@ -20,3 +20,9 @@
     
 </div>
 @endsection
+
+@push('script')
+    <script>
+        alert("hello")
+    </script>
+@endpush

@@ -7,16 +7,16 @@
     @include('user.components.breadcrumb', [
         'breadcrumbs' => [
             [
-                'name' => __('menu'),
-                'url' => setRoute('menu.index'),
+                'name' => __('Dashboard'),
+                'url' => setRoute('user.dashboard'),
             ],
         ],
-        'active' => __('Dashboard'),
+        'active' => __('menu'),
     ])
 @endsection
 
 @section('content')
 <div class="body-wrapper">
-    <h1 style="color: royalblue">Menu du jour </h1>
+    <h1 style="color: royalblue">Menu du jour</h1>
 </div>
 @endsection

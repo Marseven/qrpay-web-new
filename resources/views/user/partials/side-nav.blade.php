@@ -19,6 +19,12 @@
                         </a>
                     </li>
                     <li class="sidebar-menu-item">
+                        <a href="{{ setRoute('user.dashboard') }}">
+                            <i class="menu-icon fas fa-th-large"></i>
+                            <span class="menu-title">Menu du jour</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
                         <a href="{{ setRoute('user.ticket.pay.index') }}">
                             <i class="menu-icon fas fa-shopping-bag"></i>
                             <span class="menu-title">{{ __('Ticket Pay') }}</span>

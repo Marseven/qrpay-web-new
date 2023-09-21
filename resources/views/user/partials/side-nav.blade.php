@@ -7,7 +7,7 @@
                         data-dark_img="{{ get_logo($basic_settings) }}" alt="logo">
                 </a>
                 <button class="sidebar-menu-bar">
-                    <i class="fas fa-exchange-alt"></i>
+                    <i class="fas fa-exchange-alt"></i> 
                 </button>
             </div> 
             <div class="sidebar-menu-wrapper">
@@ -19,7 +19,7 @@
                         </a>
                     </li>
                     <li class="sidebar-menu-item">
-                        <a href="{{ setRoute('user.dashboard') }}">
+                        <a href="{{ setRoute('user.menu.index') }}">
                             <i class="menu-icon fas fa-calendar"></i>
                             <span class="menu-title">Menu du jour</span>
                         </a>

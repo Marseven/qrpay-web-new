@@ -1,6 +1,9 @@
 @extends('user.layouts.master')
 
 @push('css')
+body{
+    background : orange;
+}
 @endpush
 
 @section('breadcrumb')
@@ -22,7 +25,7 @@
 @endsection
 
 @push('script')
-    <script>
-        alert("hello")
-    </script>
+<script>
+    // javascript code
+</script>
 @endpush

@@ -1,11 +1,5 @@
 @extends('user.layouts.master')
 
-@push('css')
-body{
-    background : orange;
-}
-@endpush
-
 @section('breadcrumb')
     @include('user.components.breadcrumb', [
         'breadcrumbs' => [

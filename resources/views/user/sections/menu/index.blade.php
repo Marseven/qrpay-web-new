@@ -16,7 +16,8 @@
 
 @section('content')
 <div class="body-wrapper">
-    <!--  -->
+    @for ($i = 0; $i < 10; $i++)
+         <!--  -->
     <div class="menu-content">
         <div class="head-menu">
             <!--  -->
@@ -40,7 +41,7 @@
             </div>
             <!--  -->
             <!--  -->
-            <div class="display" data-active="1">
+            <div class="display" data-active="{{$i}}">
                 <button>
                     <i class="fa fa-chevron-down" aria-hidden="true"></i>
                 </button>
@@ -48,7 +49,7 @@
             <!--  -->
         </div>
         <!--  -->
-        <div class="body-menu" data-active="1">
+        <div class="body-menu" data-active="{{$i}}">
             <div class="plat-content">
                 <div class="plat-image">
                     <img src="https://www.la-gannerie.com/ressources/images/d0aae63c434f.jpg" alt="plat">
@@ -89,6 +90,7 @@
         </div>
     </div>
     <!--  -->
+    @endfor
 </div>
 @endsection
 

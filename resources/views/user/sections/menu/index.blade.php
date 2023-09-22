@@ -13,7 +13,7 @@
 @endsection
 
 @section("link-css")
-<link rel="stylesheet" href="{{asset("frontend/css/menu.css")}}">
+{{-- <link rel="stylesheet" href="{{asset("frontend/css/menu.css")}}"> --}}
 @endsection
 
 @section('content')

@@ -23,7 +23,7 @@
             <!--  -->
             <div class="menu-info">
                 <div class="icone">
-                    <i class="fa fa-cutlery" aria-hidden="true"></i>
+                    <i class="fa fa-shopping-basket" aria-hidden="true"></i>
                 </div>
                 <div class="menu-info-texte">
                     <p class="titre">Petit dejeune</p>

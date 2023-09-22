@@ -21,9 +21,9 @@
     font-weight: bold;
   }
   .head-menu .menu-info .dispo {
-    padding: 4px 8px;
-    margin-top: 5px;
+    padding: 3px 8px;
     border-radius: 10px;
+    font-size: 14px !important;
     background: #28c66f;
   }
   .head-menu .menu-info .dispo p {

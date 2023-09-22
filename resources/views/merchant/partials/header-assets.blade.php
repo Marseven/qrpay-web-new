@@ -11,8 +11,6 @@
 
 <!-- animate css link -->
 <link rel="stylesheet" href="{{ asset('public/frontend/') }}/css/animate.css">
-<!-- Menu du jour - css -->
-<link rel="stylesheet" href="{{ asset('public/frontend/') }}/css/menu.css">
 
 <link rel="stylesheet" href="{{ asset('public/backend/css/select2.min.css') }}">
 <link rel="stylesheet" href="{{ asset('public/backend/library/popup/magnific-popup.css') }}">

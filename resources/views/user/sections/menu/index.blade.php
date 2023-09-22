@@ -11,10 +11,8 @@
         'active' => __('menu'),
     ])
 @endsection
-
-@section("link-css")
-{{-- <link rel="stylesheet" href="{{asset("frontend/css/menu.css")}}"> --}}
-@endsection
+<!-- Menu du jour - css -->
+<link rel="stylesheet" href="{{ asset('public/frontend/') }}/css/menu.css">
 
 @section('content')
 <div class="body-wrapper">

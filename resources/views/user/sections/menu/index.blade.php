@@ -16,7 +16,17 @@
 
 @section('content')
 <div class="body-wrapper">
-    @for ($i = 0; $i < 10; $i++)
+    @if (count($menus) <= 0)
+    <div class="empty-menus">
+            <p class="empty-menu-inc">
+                <i class="fa fa-calendar-times-o" aria-hidden="true"></i>
+            </p>
+            <p class="empty-menu-txt">
+                Rien de prévus pour le moment.
+            </p>
+    </div>
+    @endif
+    @for ($i = 0; $i < count($menus); $i++)
          <!--  -->
     <div class="menu-content">
         <div class="head-menu">
@@ -26,22 +36,26 @@
                     <i class="fa fa-shopping-basket" aria-hidden="true"></i>
                 </div>
                 <div class="menu-info-texte">
-                    <p class="titre">Petit dejeune</p>
-                    <div class="dispo">
+                    <p class="titre">{{$menus[$i]["titre"]}}</p>
+                    @if ($menus[$i]["disponible"])
+                    <div class="dispo true">
                         <p>disponible</p>
                     </div>
+                    @else
+                    <div class="dispo fals">
+                        <p>Non disponible</p>
+                    </div>
+                    @endif
                 </div>
             </div>
             <!--  -->
             <!--  -->
             <div class="temps">
-                <p class="date">
-                    <span>Mer. 18 Avr. 2023</span> - <span>18H30</span>
-                </p>
+                <p class="date"><span>{{$menus[$i]["debut"]}}</span> a <span>{{$menus[$i]["fin"]}}</span></p>
             </div>
             <!--  -->
             <!--  -->
-            <div class="display" data-active="{{$i}}">
+            <div class="display {{$i == 0 ? "active" : ""}}" data-active="{{$i}}">
                 <button>
                     <i class="fa fa-chevron-down" aria-hidden="true"></i>
                 </button>
@@ -49,40 +63,33 @@
             <!--  -->
         </div>
         <!--  -->
-        <div class="body-menu" data-active="{{$i}}">
+        <div class="body-menu {{count($plats) == 0 ? "empty-body" : "not-empty-body" }} {{$i == 0 ? "active" : ""}}" data-active="{{$i}}">
+            @if (count($plats) <= 0)
+                <div class="empty-plats">
+                    <p class="empty-plats-icn">
+                        <i class="fa fa-coffee" aria-hidden="true"></i>
+                    </p>
+                    <p class="empty-plats-txt">
+                        Pas de plats pour le moment.
+                    </p>
+                </div>
+            @endif
+            <!-- -->
+            @for ($b = 0; $b < count($plats); $b++)
+            @if ($plats[$b]["menu_id"] == $menus[$i]["id"])
             <div class="plat-content">
                 <div class="plat-image">
                     <img src="https://www.la-gannerie.com/ressources/images/d0aae63c434f.jpg" alt="plat">
                 </div>
-                <div class="plat-textes">
-                    <p class="plat-titre">Lorem, ipsum dolor.</p>
-                    <p class="plat-desc">Lorem ipsum dolor sit, amet consectetur adipisicing.</p>
-                </div>
+                <p class="plat-titre">{{$plats[$b]["titre"]}}</p>
             </div>
-            <!--  -->
-            <div class="plat-content">
-                <div class="plat-image">
-                    <img src="https://www.la-gannerie.com/ressources/images/d0aae63c434f.jpg" alt="plat">
-                </div>
-                <div class="plat-textes">
-                    <p class="plat-titre">Lorem, ipsum dolor.</p>
-                    <p class="plat-desc">Lorem ipsum dolor sit, amet consectetur adipisicing.</p>
-                </div>
-            </div>
-            <!--  -->
-            <div class="plat-content">
-                <div class="plat-image">
-                    <img src="https://www.la-gannerie.com/ressources/images/d0aae63c434f.jpg" alt="plat">
-                </div>
-                <div class="plat-textes">
-                    <p class="plat-titre">Lorem, ipsum dolor.</p>
-                    <p class="plat-desc">Lorem ipsum dolor sit, amet consectetur adipisicing.</p>
-                </div>
-            </div>
+            @endif
+            @endfor
+            <!-- -->
         </div>
         <!--  -->
         <div class="footer-menu">
-            <p class="nom-restaurant">Nom du restaurant</p>
+            <p class="nom-restaurant">{{$menus[$i]["restaurant"]}}</p>
             <button>
                 <span>j'aime</span>
                 <i class="fa fa-thumbs-up" aria-hidden="true"></i>

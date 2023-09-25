@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Menu;
 use App\Models\Plats;
 use Illuminate\Http\Request;
+use Stripe\Plan;
 
 class MenuController extends Controller
 {
@@ -12,7 +13,8 @@ class MenuController extends Controller
     function getMenu(){
         $menu = new Menu();
         $plats = new Plats();
-        dd($plats->menus);
+        $plat = Plats::find(1);
+        dd($plat);
         return view("user.sections.menu.index",["menus" => $menu->all(),"plats" => $plats->all()]);
     }
     public function create(Request $req){

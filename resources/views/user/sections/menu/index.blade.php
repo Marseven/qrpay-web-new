@@ -89,7 +89,7 @@
         </div>
         <!--  -->
         <div class="footer-menu">
-            <p class="nom-restaurant">{{$menus[$i]->menus[$i]["restaurant"]}}</p>
+            <p class="nom-restaurant">{{$menus[$i]["restaurant"]}}</p>
             <button>
                 <span>j'aime</span>
                 <i class="fa fa-thumbs-up" aria-hidden="true"></i>

@@ -63,7 +63,7 @@
             <!--  -->
         </div>
         <!--  -->
-        <div class="body-menu {{count($plats) == 0 ? "empty-body" : "not-empty-body" }} {{$i == 0 ? "active" : ""}}" data-active="{{$i}}">
+        <div class="body-menu {{count($menus[$i]->plats) == 0 ? "empty-body" : "not-empty-body" }} {{$i == 0 ? "active" : ""}}" data-active="{{$i}}">
             @if (count($plats) <= 0)
                 <div class="empty-plats">
                     <p class="empty-plats-icn">
@@ -75,13 +75,13 @@
                 </div>
             @endif
             <!-- -->
-            @for ($b = 0; $b < count($plats); $b++)
-            @if ($plats[$b]["menu_id"] == $menus[$i]["id"])
+            @for ($b = 0; $b < count($menus[$i]->plats); $b++)
+            @if ($menus[$i]->plats[$b]["menu_id"] == $menus[$i]["id"])
             <div class="plat-content">
                 <div class="plat-image">
                     <img src="https://www.la-gannerie.com/ressources/images/d0aae63c434f.jpg" alt="plat">
                 </div>
-                <p class="plat-titre">{{$plats[$b]["titre"]}}</p>
+                <p class="plat-titre">{{$menus[$i]->plats[$b]["titre"]}}</p>
             </div>
             @endif
             @endfor
@@ -89,7 +89,7 @@
         </div>
         <!--  -->
         <div class="footer-menu">
-            <p class="nom-restaurant">{{$menus[$i]["restaurant"]}}</p>
+            <p class="nom-restaurant">{{$menus[$i]->menus[$i]["restaurant"]}}</p>
             <button>
                 <span>j'aime</span>
                 <i class="fa fa-thumbs-up" aria-hidden="true"></i>

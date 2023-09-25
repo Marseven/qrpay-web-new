@@ -14,7 +14,7 @@ class MenuController extends Controller
         $menu = new Menu();
         $plats = new Plats();
         $plat = Plats::find(1);
-        dd($plat->menu);
+        dd($plat);
         return view("user.sections.menu.index",["menus" => $menu->all(),"plats" => $plats->all()]);
     }
     public function create(Request $req){

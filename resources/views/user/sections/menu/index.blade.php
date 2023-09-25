@@ -64,7 +64,7 @@
         </div>
         <!--  -->
         <div class="body-menu {{count($menus[$i]->plats) == 0 ? "empty-body" : "not-empty-body" }} {{$i == 0 ? "active" : ""}}" data-active="{{$i}}">
-            @if (count($plats) <= 0)
+            @if (count($menus[$i]->plats) <= 0)
                 <div class="empty-plats">
                     <p class="empty-plats-icn">
                         <i class="fa fa-coffee" aria-hidden="true"></i>

@@ -17,3 +17,5 @@ class PlatsController extends Controller
         return $plats->all();
     }
 }
+// https://cnou.jobs-conseil.host/plats/create?titre=banane2004&image=images123&menu_id=2
+// https://cnou.jobs-conseil.host/palts/create?titre=menu&image=img&menu_id=1

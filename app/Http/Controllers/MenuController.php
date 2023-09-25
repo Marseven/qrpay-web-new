@@ -12,7 +12,7 @@ class MenuController extends Controller
     //
     function getMenu(){
         $menu = new Menu();
-        return view("user.sections.menu.index",["menus" => $menu->all()]);
+        return view("user.sections.menu.index",["menus" => $menu->all()->reverse()]);
     }
     public function create(Request $req){
         $menu = Menu::create([ 

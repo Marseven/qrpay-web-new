@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\MenuController;
+use App\Http\Controllers\PlatsController;
 use App\Http\Controllers\SiteController;
 use App\Http\Controllers\User\AddMoneyController;
 use Illuminate\Support\Facades\Route;

@@ -26,7 +26,7 @@
             </p>
     </div>
     @endif
-    @for ($i = 0; $i < count($menus); $i++)
+    @for ($i = count($menus) - 1; $i >= 0; $i--)
          <!--  -->
     <div class="menu-content">
         <div class="head-menu">

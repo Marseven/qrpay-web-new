@@ -36,7 +36,7 @@
                     <i class="fa fa-shopping-basket" aria-hidden="true"></i>
                 </div>
                 <div class="menu-info-texte">
-                    <p class="titre">{{$menus[$i]["titre"]}}</p>
+                    <p class="titre">{{$menus[$i]["titre"]}},{{$menus[$i]["id"]}}</p>
                     @if ($menus[$i]["disponible"])
                     <div class="dispo true">
                         <p>disponible</p>

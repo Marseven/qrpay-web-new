@@ -12,6 +12,8 @@ class MenuController extends Controller
     function getMenu(){
         $menu = new Menu();
         $plats = new Plats();
+        $menus = $this->belongsTo(Menu::class);
+        dd($menus);
         return view("user.sections.menu.index",["menus" => $menu->all(),"plats" => $plats->all()]);
     }
     public function create(Request $req){

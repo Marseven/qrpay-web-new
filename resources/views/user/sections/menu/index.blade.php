@@ -19,7 +19,7 @@
     @if (count($menus) <= 0)
     <div class="empty-menus">
             <p class="empty-menu-inc">
-                <i class="fa fa-calendar-times-o" aria-hidden="true"></i>
+                <i class="fa fa-calendar" aria-hidden="true"></i>
             </p>
             <p class="empty-menu-txt">
                 Rien de prévus pour le moment.

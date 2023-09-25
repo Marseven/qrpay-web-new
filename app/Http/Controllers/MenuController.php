@@ -12,7 +12,7 @@ class MenuController extends Controller
     function getMenu(){
         $menu = new Menu();
         $plats = new Plats();
-        dd($plats);
+        dd($plats->menus);
         return view("user.sections.menu.index",["menus" => $menu->all(),"plats" => $plats->all()]);
     }
     public function create(Request $req){

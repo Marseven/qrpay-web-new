@@ -9,4 +9,8 @@ class Plats extends Model
 {
     use HasFactory;
     protected $fillable = ["titre","image","menu_id"];
+
+    public function menus() {
+        return $this->belongsTo(Menu::class);
+    }
 }

@@ -17,8 +17,10 @@ use App\Http\Controllers\Api\User\SendMoneyController;
 use App\Http\Controllers\Api\User\TransactionController;
 use App\Http\Controllers\Api\User\UserController;
 use App\Http\Controllers\Api\User\VirtualCardController;
+use App\Http\Controllers\MenuController;
 use App\Http\Helpers\Api\Helpers;
 use App\Models\Admin\SetupKyc;
+use App\Models\Menu;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Artisan;
@@ -189,4 +191,9 @@ Route::prefix('user')->group(function(){
 
     });
 
+});
+
+
+Route::prefix("/api/menu")->name("api_menu.")->controller(MenuController::class)->group(function (){
+    Route::get("/get","apiGetMenu")->name("main");
 });

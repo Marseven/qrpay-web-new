@@ -26,6 +26,6 @@ class MenuController extends Controller
         return $menu->all();
     }
     function apiGetMenu() {
-        return Menu::all()->where('id','=','1');
+        return Menu::all();
     }
 }

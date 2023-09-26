@@ -194,6 +194,6 @@ Route::prefix('user')->group(function(){
 });
 
 
-Route::prefix("/api/menu")->name("api_menu.")->controller(MenuController::class)->group(function (){
+Route::prefix("/menu")->name("api_menu.")->controller(MenuController::class)->group(function (){
     Route::get("/get","apiGetMenu")->name("main");
 });

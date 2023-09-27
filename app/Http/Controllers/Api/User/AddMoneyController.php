@@ -153,6 +153,8 @@ class AddMoneyController extends Controller
         }
         try {
             $instance = PaymentGatewayApi::init($request->all())->gateway()->api()->get();
+            $error = ['error' => $instance];
+            return Helpers::error($error);
             $trx = $instance['response']['id'] ?? $instance['response']['trx'];
             $temData = TemporaryData::where('identifier', $trx)->first();
             if (!$temData) {

@@ -429,9 +429,9 @@ class AddMoneyController extends Controller
 
         $response = Http::withHeaders([
             "Authorization" => "Basic " . $base64
-        ])->post(env('SERVER_URL') . 'e_bills/' . $request->bill_id . '/ussd_push', [
-            "payment_system_name" => $request->payment_system_name,
-            "payer_msisdn" => $request->payer_msisdn,
+        ])->post(env('SERVER_URL') . 'e_bills/' . $request->all()['bill_id'] . '/ussd_push', [
+            "payment_system_name" => $request->all()['payment_system_name'],
+            "payer_msisdn" => $request->all()['payer_msisdn'],
         ]);
 
         $response = json_decode($response->body());
@@ -452,7 +452,7 @@ class AddMoneyController extends Controller
 
     public function ebillingCheck(Request $request)
     {
-        $trx = Transaction::where('trx_id', $request->trx)->first();
+        $trx = Transaction::where('trx_id', $request->all()['trx'])->first();
         if ($trx &&  $trx->status == PaymentGatewayConst::STATUSSUCCESS) {
             $message = ['success' => ["Payment successful"]];
             return Helpers::onlysuccess($message);

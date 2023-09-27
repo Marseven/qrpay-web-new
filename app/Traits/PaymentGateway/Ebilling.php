@@ -176,6 +176,7 @@ trait Ebilling
 
             $this->ebillingCreateTransaction($output, $trx_id, $bill_id);
             $result['trx'] = $trx_id;
+            $result['bill_id'] = $bill_id;
 
             // Redirect to E-Billing portal
             return $result;

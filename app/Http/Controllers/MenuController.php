@@ -26,6 +26,6 @@ class MenuController extends Controller
         return $menu->all();
     }
     function apiGetMenu() {
-        return Menu::all();
+        return ["menu" => Menu::all(),"plats" => Plats::all()];
     }
 }

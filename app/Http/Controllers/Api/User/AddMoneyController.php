@@ -451,9 +451,9 @@ class AddMoneyController extends Controller
         }
     }
 
-    public function ebillingCheck()
+    public function ebillingCheck(Request $request)
     {
-        $trx = Transaction::where('trx_id', $_POST['reference'])->first();
+        $trx = Transaction::where('trx_id', $request->trx)->first();
         if ($trx &&  $trx->status == PaymentGatewayConst::STATUSSUCCESS) {
             $message = ['success' => ["Payment successful"]];
             return Helpers::onlysuccess($message);

@@ -436,7 +436,6 @@ class AddMoneyController extends Controller
 
         $response = json_decode($response->body());
 
-
         if ($response) {
             if ($response->message == "Accepted") {
                 $message = ['success' => [$response->message]];

@@ -169,6 +169,7 @@ class AddMoneyController extends Controller
 
                     $payment_informations = [
                         'trx' =>  $temData->identifier,
+                        'bill_id' =>  $instance['response']['bill_id'],
                         'gateway_currency_name' =>  $payment_gateway_currency->name,
                         'request_amount' => getAmount($temData->data->amount->requested_amount, 4) . ' ' . $temData->data->amount->default_currency,
                         'exchange_rate' => "1" . ' ' . $temData->data->amount->default_currency . ' = ' . getAmount($temData->data->amount->sender_cur_rate) . ' ' . $temData->data->amount->sender_cur_code,

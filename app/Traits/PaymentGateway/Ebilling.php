@@ -109,6 +109,7 @@ trait Ebilling
     {
         if (!$output) $output = $this->output;
         $credentials = $this->getEbillingCredentials($output);
+        $trx_id = 'AM' . getTrxNum();
 
         $reference = $this->str_reference(6);
 
@@ -171,10 +172,12 @@ trait Ebilling
 
             // Get unique transaction id
             $bill_id = $response['e_bill']['bill_id'];
-            $this->ebillingJunkInsert($response, $reference);
+            $this->ebillingJunkInsert($response, $trx_id);
+
+            $this->ebillingCreateTransaction($output, $trx_id, $bill_id);
 
             // Redirect to E-Billing portal
-            return $response;
+            return $response['trx'] = $trx_id;
         }
     }
 

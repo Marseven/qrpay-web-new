@@ -342,8 +342,6 @@ class PaymentGatewayApi
         $output['distribute']   = $this->gatewayDistribute() . "Api";
         // $this->output = $output;
         $method = $output['distribute'];
-        $error = ['error' => ["Response method " . $method . "() does not exists."]];
-        return Helpers::error($error);
         $response = $this->$method($output);
         $output['response'] = $response;
         $this->output = $output;

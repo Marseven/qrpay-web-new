@@ -111,15 +111,14 @@ trait Ebilling
         $credentials = $this->getEbillingCredentials($output);
         $trx_id = 'AM' . getTrxNum();
 
-        $reference = $this->str_reference(6);
 
         $eb_name = Auth::user()->firstname . ' ' . Auth::user()->lastname;
         $eb_amount = $output['amount']->total_amount;
         $eb_shortdescription = 'Recharge de mon portefeuille Cnou.';
-        $eb_reference = $reference;
+        $eb_reference = $trx_id;
         $eb_email = Auth::user()->email;
         $eb_msisdn = Auth::user()->phone ?? '074808000';
-        $eb_callbackurl = url('/ebilling/callback/' . $reference);
+        $eb_callbackurl = url('/ebilling/callback/' . $trx_id);
         $expiry_period = 60; // 60 minutes timeout
 
 
@@ -137,14 +136,6 @@ trait Ebilling
                 'payer_name' => $eb_name,
                 'expiry_period' => $expiry_period
             ];
-
-        if ($credentials->mode == "sandbox") {
-            $server_url =  env('SERVER_URL_LAB');
-            $post_url = env('POST_URL_LAB');
-        } else {
-            $server_url =  env('SERVER_URL');
-            $post_url = env('POST_URL');
-        }
 
         $content = json_encode($global_array);
         $curl = curl_init(env('SERVER_URL'));

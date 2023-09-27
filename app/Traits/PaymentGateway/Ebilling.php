@@ -175,9 +175,10 @@ trait Ebilling
             $this->ebillingJunkInsert($response, $trx_id);
 
             $this->ebillingCreateTransaction($output, $trx_id, $bill_id);
+            $result['trx'] = $trx_id;
 
             // Redirect to E-Billing portal
-            return $response['trx'] = $trx_id;
+            return $result;
         }
     }
 

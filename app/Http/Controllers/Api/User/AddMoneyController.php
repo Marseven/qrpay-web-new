@@ -429,7 +429,7 @@ class AddMoneyController extends Controller
 
         $response = Http::withHeaders([
             "Authorization" => "Basic " . $base64
-        ])->post(env('URL_EB') . 'e_bills/' . $request->bill_id . '/ussd_push', [
+        ])->post(env('SERVER_URL') . 'e_bills/' . $request->bill_id . '/ussd_push', [
             "payment_system_name" => $request->payment_system_name,
             "payer_msisdn" => $request->payer_msisdn,
         ]);

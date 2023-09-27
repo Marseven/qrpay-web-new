@@ -376,7 +376,7 @@ class AddMoneyController extends Controller
 
     public function ebillingPush(Request $request)
     {
-        $gateway = PaymentGateway::addMoney()->gateway('ebilling')->get();
+        $gateway = PaymentGateway::addMoney()->automatic()->gateway('ebilling')->first();
         $client_username_sample = ['username', 'user_name', 'Username', 'primary key'];
         $client_sharedkey_sample = ['shared_key', 'Shared Key', 'shared', 'shared key', 'shared id'];
         $username = '';

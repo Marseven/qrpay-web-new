@@ -441,7 +441,7 @@ class AddMoneyController extends Controller
                 $message = ['success' => [$response->message]];
                 return Helpers::onlysuccess($message);
             } else {
-                $message = ['error' => ['Failed']];
+                $message = ['error' => [$response->message]];
                 return Helpers::error($message);
             }
         } else {

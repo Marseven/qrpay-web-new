@@ -14,16 +14,18 @@ use App\Models\Admin\PaymentGatewayCurrency;
 use App\Models\TemporaryData;
 use App\Models\Transaction;
 use App\Models\UserWallet;
+use App\Traits\PaymentGateway\Ebilling;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Traits\PaymentGateway\Stripe;
 use App\Traits\PaymentGateway\Manual;
+use Illuminate\Support\Facades\Http;
 use KingFlamez\Rave\Facades\Rave as Flutterwave;
 
 class AddMoneyController extends Controller
 {
-    use Stripe, Manual;
+    use Ebilling, Stripe, Manual;
     public function addMoneyInformation()
     {
         $user = auth()->user();
@@ -367,6 +369,95 @@ class AddMoneyController extends Controller
             Helpers::error($message);
         } else {
             $message = ['error' => ['Payment Failed']];
+            Helpers::error($message);
+        }
+    }
+
+    public function ebillingPush(Request $request)
+    {
+        $gateway = PaymentGateway::addMoney()->gateway('ebilling')->get();
+        $client_username_sample = ['username', 'user_name', 'Username', 'primary key'];
+        $client_sharedkey_sample = ['shared_key', 'Shared Key', 'shared', 'shared key', 'shared id'];
+        $username = '';
+        $outer_break = false;
+        foreach ($client_username_sample as $item) {
+            if ($outer_break == true) {
+                break;
+            }
+            $modify_item = $item;
+            foreach ($gateway->credentials ?? [] as $gatewayInput) {
+                $label = $gatewayInput->label ?? "";
+                if ($label == $modify_item) {
+                    $username = $gatewayInput->value ?? "";
+                    $outer_break = true;
+                    break;
+                }
+            }
+        }
+        $sharedkey = '';
+        $outer_break = false;
+        foreach ($client_sharedkey_sample as $item) {
+            if ($outer_break == true) {
+                break;
+            }
+            $modify_item = $item;
+            foreach ($gateway->credentials ?? [] as $gatewayInput) {
+                $label = $gatewayInput->label ?? "";
+                if ($label == $modify_item) {
+                    $sharedkey = $gatewayInput->value ?? "";
+                    $outer_break = true;
+                    break;
+                }
+            }
+        }
+        $mode = $gateway->env;
+
+        $ebilling_register_mode = [
+            PaymentGatewayConst::ENV_SANDBOX => "sandbox",
+            PaymentGatewayConst::ENV_PRODUCTION => "live",
+        ];
+        if (array_key_exists($mode, $ebilling_register_mode)) {
+            $mode = $ebilling_register_mode[$mode];
+        } else {
+            $mode = "sandbox";
+        }
+
+        $auth = $username . ':' . $sharedkey;
+
+        $base64 = base64_encode($auth);
+
+        $response = Http::withHeaders([
+            "Authorization" => "Basic " . $base64
+        ])->post(env('URL_EB') . 'e_bills/' . $request->bill_id . '/ussd_push', [
+            "payment_system_name" => $request->payment_system_name,
+            "payer_msisdn" => $request->payer_msisdn,
+        ]);
+
+        $response = json_decode($response->body());
+
+
+        if ($response) {
+            if ($response->message == "Accepted") {
+                $message = ['success' => [$response->message]];
+                return Helpers::onlysuccess($message);
+            } else {
+                $message = ['error' => ['Echec']];
+                Helpers::error($message);
+            }
+        } else {
+            $message = ['error' => ['Echec']];
+            Helpers::error($message);
+        }
+    }
+
+    public function ebillingCheck()
+    {
+        $trx = Transaction::where('trx_id', $_POST['reference'])->first();
+        if ($trx &&  $trx->status == PaymentGatewayConst::STATUSSUCCESS) {
+            $message = ['success' => ["Payment successful"]];
+            return Helpers::onlysuccess($message);
+        } else {
+            $message = ['error' => ['unPaid']];
             Helpers::error($message);
         }
     }

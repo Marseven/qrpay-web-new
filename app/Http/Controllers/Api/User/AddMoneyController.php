@@ -441,11 +441,11 @@ class AddMoneyController extends Controller
                 $message = ['success' => [$response->message]];
                 return Helpers::onlysuccess($message);
             } else {
-                $message = ['error' => ['Echec']];
+                $message = ['error' => ['Failed']];
                 return Helpers::error($message);
             }
         } else {
-            $message = ['error' => ['Echec']];
+            $message = ['error' => ['Failed']];
             return Helpers::error($message);
         }
     }
@@ -457,8 +457,8 @@ class AddMoneyController extends Controller
             $message = ['success' => ["Payment successful"]];
             return Helpers::onlysuccess($message);
         } else {
-            $message = ['error' => ['unPaid']];
-            return Helpers::error($message);
+            $message = ['success' => ['Failed']];
+            return Helpers::onlysuccess($message);
         }
     }
 }

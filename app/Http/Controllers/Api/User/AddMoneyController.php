@@ -457,8 +457,8 @@ class AddMoneyController extends Controller
             $message = ['success' => ["Payment successful"]];
             return Helpers::onlysuccess($message);
         } else {
-            $message = ['success' => ['Failed']];
-            return Helpers::onlysuccess($message);
+            $message = ['error' => ['Failed']];
+            return Helpers::error($message);
         }
     }
 }
